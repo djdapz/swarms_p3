@@ -33,9 +33,12 @@ class mykilobot : public kilobot
 	//main loop
 	void loop()
 	{
+
 		if(ticks >=11){
-			spinup_motors();
-			set_motors(50, 50);
+			if(movement_mag > mag_threshold){
+				spinup_motors();
+				set_motors(50, 50);
+			}
 		}else if(ticks > 5){
 			// if(id==0)
 			// {
@@ -91,7 +94,8 @@ class mykilobot : public kilobot
 			// 	}
 			//
 			// }
-			if(fabs(next_angle)<.3)
+			if(movement_mag > mag_threshold){
+				if(fabs(next_angle)<.3)
 				{
 
 				}
@@ -105,16 +109,18 @@ class mykilobot : public kilobot
 					spinup_motors();
 					set_motors(0,kilo_turn_right);
 				}
+			}
 
 		}else if(ticks == 5){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
-			running_x = 0;
-			running_y = 0;
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
 			if(id ==1){
 				std::cout<<"movement_mag:  " << movement_mag<<std::endl;
 			}
+
+			running_x = 0;
+			running_y = 0;
 		}
 
 		if(ticks == max_ticks){
