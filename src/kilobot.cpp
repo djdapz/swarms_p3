@@ -192,7 +192,7 @@ class mykilobot : public kilobot
 		// // }
 
 		if(id == 1){
-			std::cout<<'asdfasdfasdfasdf'
+			std::cout<<'asdfasdfasdfasdf';
 		}
 
 		double force_x = force_mag * cos(theta);
