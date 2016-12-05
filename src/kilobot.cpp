@@ -8,6 +8,9 @@ class mykilobot : public kilobot
 	int rxed=0;
 	float theta;
 
+	int gravity = 1200;
+	int raidus_goal = 50;
+
 	int motion=0;
 	long int motion_timer=0;
 
@@ -18,66 +21,102 @@ class mykilobot : public kilobot
 
 	};
 
+	double running_x = 0;
+	double running_y = 0;
+	double movement_mag = 0;
+	int ticks = 0;
+	int max_ticks = 14;
+	int mag_threshold = 0;
+
 	//main loop
 	void loop()
 	{
+		if(ticks >=11){
+			spinup_motors();
+			set_motors(50, 50)
+		}else if(ticks > 5){
+			// if(id==0)
+			// {
+			//
+			// 	if(fabs(theta)<.3)
+			// 	{
+			//
+			// 		spinup_motors();
+			// 		set_motors(50,50);
+			//
+			// 	}
+			// 	else if(theta<0)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(kilo_turn_left,0);
+			//
+			//
+			//
+			// 	}
+			// 	else
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(0,kilo_turn_right);
+			//
+			//
+			// 	}
+			// }
+			// else
+			// {
+			// 	//printf("compass =%f\n\r",compass);
+			//
+			// 	if(fabs(compass-1.5)<.1)
+			// 	{
+			//
+			// 		spinup_motors();
+			// 		set_motors(50,50);
+			//
+			// 	}
+			// 	else if(compass-1.5<0)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(kilo_turn_left,0);
+			//
+			//
+			//
+			// 	}
+			// 	else
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(0,kilo_turn_right);
+			//
+			//
+			// 	}
+			//
+			// }
+			if(fabs(next_angle)<.3)
+				{
 
-		if(id==0)
-		{
+				}
+				else if(next_angle<0)
+				{
+					spinup_motors();
+					set_motors(kilo_turn_left,0);
+				}
+				else
+				{
+					spinup_motors();
+					set_motors(0,kilo_turn_right);
+				}
 
-			if(fabs(theta)<.3)
-			{
-
-				spinup_motors();
-				set_motors(50,50);
-
-			}
-			else if(theta<0)
-			{
-				spinup_motors();
-				set_motors(kilo_turn_left,0);
-
-
-
-			}
-			else
-			{
-				spinup_motors();
-				set_motors(0,kilo_turn_right);
-
-
-			}
+		}else if(ticks == 5){
+			double composite_dir_rad = atan2(running_y, running_x);
+			next_angle = composite_dir_rad;
+			running_x = 0;
+			running_y = 0;
+			movement_mag = sqrt(running_x*running_x + running_y*running_y);
 		}
-		else
-		{
-			//printf("compass =%f\n\r",compass);
 
-			if(fabs(compass-1.5)<.1)
-			{
-
-				spinup_motors();
-				set_motors(50,50);
-
-			}
-			else if(compass-1.5<0)
-			{
-				spinup_motors();
-				set_motors(kilo_turn_left,0);
-
-
-
-			}
-			else
-			{
-				spinup_motors();
-				set_motors(0,kilo_turn_right);
-
-
-			}
-
+		if(ticks == max_ticks){
+			ticks = 0;
+		}else{
+			ticks ++;
 		}
-
-
 
 
 	}
@@ -116,5 +155,34 @@ class mykilobot : public kilobot
 		distance = estimate_distance(distance_measurement);
 		theta=t;
 
+		//caluclate force vector
+
+		//decide on direction
+		if(distance < raidus_goal){
+			//reverse theta
+			theta = radian_to_degree(t);
+			theta += 180;
+			theta = degrees_to_radians(theta);
+		}
+
+		//decide on magnitued
+		double force_mag = gravity * 1 * 1 / (distance * distance)
+
+		double force_x = force_mag * cos(theta);
+		double force_y = force_mag * sin(theta);
+
+
+		if(ticks <=5){
+			running_x = force_x + running_x;
+			running_y = force_x + running_x;
+		}
+	}
+
+	int radian_to_degree(double radians){
+		return (int)radians * 360 / (2*M_PI) + 180;
+	}
+
+	double degrees_to_radians(int degrees){
+		return ((double)degrees- 180)*(2*M_PI)/360;
 	}
 };
