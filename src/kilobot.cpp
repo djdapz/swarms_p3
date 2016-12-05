@@ -163,47 +163,61 @@ class mykilobot : public kilobot
 		return NULL;
 	}
 
-	//receives message
+	// //receives message
+	// void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t)
+	// {
+	// 	distance = estimate_distance(distance_measurement);
+	// 	theta=t;
+	//
+	//
+	//
+	// 	//caluclate force vector
+	//
+	// 	//decide on direction
+	// 	if(distance < raidus_goal){
+	// 		//reverse theta
+	// 		theta = radian_to_degree(t);
+	// 		theta += 180;
+	// 		theta = degrees_to_radians(theta);
+	// 	}
+	//
+	// 	//decide on magnitued
+	// 	double force_mag = gravity * 1 * 1 / (distance * distance);
+	//
+	// 	if(id == 1 && ticks <=5){
+	// 		set_color(RGB(1,0,0));
+	// 		std::cout<<"============="<<'\n';
+	// 		std::cout<<"force_mag: "<<force_mag<<'\n';
+	// 		std::cout<<"ticks: "<<ticks<<'\n';
+	// 		std::cout<<"gravity: "<<gravity<<'\n';
+	// 		// std::cout<<"distance: "<<distance<<'\n';
+	// 		fprintf("dist %d\n\r", distance);
+	// 	}
+	//
+	//
+	// 	double force_x = force_mag * cos(theta);
+	// 	double force_y = force_mag * sin(theta);
+	//
+	//
+	// 	if(ticks <6){
+	// 		running_x = force_x + running_x;
+	// 		running_y = force_y + running_x;
+	// 	}
+	// }
+
+
 	void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t)
+
 	{
-		distance = estimate_distance(distance_measurement);
-		theta=t;
+
+        distance = estimate_distance(distance_measurement);
 
 
-
-		//caluclate force vector
-
-		//decide on direction
-		if(distance < raidus_goal){
-			//reverse theta
-			theta = radian_to_degree(t);
-			theta += 180;
-			theta = degrees_to_radians(theta);
-		}
-
-		//decide on magnitued
-		double force_mag = gravity * 1 * 1 / (distance * distance);
-
-		if(id == 1 && ticks <=5){
-			set_color(RGB(1,0,0));
-			std::cout<<"============="<<'\n';
-			std::cout<<"force_mag: "<<force_mag<<'\n';
-			std::cout<<"ticks: "<<ticks<<'\n';
-			std::cout<<"gravity: "<<gravity<<'\n';
-			// std::cout<<"distance: "<<distance<<'\n';
-			fprintf("dist %d\n\r", distance);
-		}
+		printf("%d\n\r",distance);
 
 
-		double force_x = force_mag * cos(theta);
-		double force_y = force_mag * sin(theta);
-
-
-		if(ticks <6){
-			running_x = force_x + running_x;
-			running_y = force_y + running_x;
-		}
 	}
+
 
 	int radian_to_degree(double radians){
 		return (int)radians * 360 / (2*M_PI) + 180;
