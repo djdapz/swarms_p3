@@ -222,7 +222,7 @@ class mykilobot : public kilobot
 		}
 
 		//decide on magnitued
-		double force_mag = gravity * 1 * 1 / (distance * distance);
+		double force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
