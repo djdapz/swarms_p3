@@ -238,6 +238,15 @@ class mykilobot : public kilobot
 			printf("force_mag:  %f\n\r",force_mag);
 		}
 
+		double force_x = force_mag * cos(theta);
+		double force_y = force_mag * sin(theta);
+
+
+		if(ticks <6){
+			running_x = force_x + running_x;
+			running_y = force_y + running_x;
+		}
+
 
 
 	}
