@@ -187,6 +187,7 @@ class mykilobot : public kilobot
 		double force_mag = gravity * 1 * 1 / (distance * distance);
 		// if(id == 1){
 			std::cout<<"====================="<<std::endl;
+			std::cout<<"id			:  " << id<<std::endl;
 			std::cout<<"force_mag	:  " << force_mag<<std::endl;
 		// }
 
