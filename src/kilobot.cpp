@@ -116,6 +116,9 @@ class mykilobot : public kilobot
 			next_angle = composite_dir_rad;
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
 			if(id ==1){
+				std::cout<<"=====================" << movement_mag<<std::endl;
+				std::cout<<"running_x	:  " << running_x<<std::endl;
+				std::cout<<"running_y	:  " << running_y<<std::endl;
 				std::cout<<"movement_mag:  " << movement_mag<<std::endl;
 			}
 
