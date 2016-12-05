@@ -186,6 +186,7 @@ class mykilobot : public kilobot
 
 		if(id == 1){
 			set_color(RGB(1,0,0));
+			std::cout<<"here";
 		}
 
 		double force_x = force_mag * cos(theta);
