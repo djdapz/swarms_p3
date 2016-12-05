@@ -7,6 +7,7 @@ class mykilobot : public kilobot
 	message_t out_message;
 	int rxed=0;
 	float theta;
+	float next_angle;
 
 	int gravity = 1200;
 	int raidus_goal = 50;
@@ -28,12 +29,13 @@ class mykilobot : public kilobot
 	int max_ticks = 14;
 	int mag_threshold = 0;
 
+
 	//main loop
 	void loop()
 	{
 		if(ticks >=11){
 			spinup_motors();
-			set_motors(50, 50)
+			set_motors(50, 50);
 		}else if(ticks > 5){
 			// if(id==0)
 			// {
@@ -166,7 +168,7 @@ class mykilobot : public kilobot
 		}
 
 		//decide on magnitued
-		double force_mag = gravity * 1 * 1 / (distance * distance)
+		double force_mag = gravity * 1 * 1 / (distance * distance);
 
 		double force_x = force_mag * cos(theta);
 		double force_y = force_mag * sin(theta);
@@ -174,7 +176,7 @@ class mykilobot : public kilobot
 
 		if(ticks <=5){
 			running_x = force_x + running_x;
-			running_y = force_x + running_x;
+			running_y = force_y + running_x;
 		}
 	}
 
