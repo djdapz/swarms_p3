@@ -190,8 +190,8 @@ class mykilobot : public kilobot
 			std::cout<<"force_mag: "<<force_mag<<'\n';
 			std::cout<<"ticks: "<<ticks<<'\n';
 			std::cout<<"gravity: "<<gravity<<'\n';
-			std::cout<<"distance: "<<distance<<'\n';
-
+			// std::cout<<"distance: "<<distance<<'\n';
+			fprintf("dist %d\n\r", distance);
 		}
 
 
