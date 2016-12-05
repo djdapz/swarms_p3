@@ -7,7 +7,7 @@ class mykilobot : public kilobot
 	message_t out_message;
 	int rxed=0;
 	float theta;
-	
+
 	int motion=0;
 	long int motion_timer=0;
 
@@ -20,14 +20,14 @@ class mykilobot : public kilobot
 
 	//main loop
 	void loop()
-	{	
-	
+	{
+
 		if(id==0)
 		{
-			
+
 			if(fabs(theta)<.3)
 			{
-				
+
 				spinup_motors();
 				set_motors(50,50);
 
@@ -36,25 +36,25 @@ class mykilobot : public kilobot
 			{
 				spinup_motors();
 				set_motors(kilo_turn_left,0);
-			
-			
+
+
 
 			}
 			else
 			{
 				spinup_motors();
 				set_motors(0,kilo_turn_right);
-	
-			
+
+
 			}
 		}
 		else
 		{
-			printf("compass =%f\n\r",compass);
-			
+			//printf("compass =%f\n\r",compass);
+
 			if(fabs(compass-1.5)<.1)
 			{
-				
+
 				spinup_motors();
 				set_motors(50,50);
 
@@ -63,29 +63,29 @@ class mykilobot : public kilobot
 			{
 				spinup_motors();
 				set_motors(kilo_turn_left,0);
-			
-			
+
+
 
 			}
 			else
 			{
 				spinup_motors();
 				set_motors(0,kilo_turn_right);
-	
-			
+
+
 			}
 
 		}
 
 
-		
-		
+
+
 	}
 
 	//executed once at start
 	void setup()
 	{
-		
+
 		out_message.type = NORMAL;
 		out_message.crc = message_crc(&out_message);
 		set_color(RGB(0,1,0)); //starting color doesn't matter
@@ -95,7 +95,7 @@ class mykilobot : public kilobot
 	void message_tx_success()
 	{
 		//set_color(RGB(1,0,0));
-		
+
 	}
 
 	//sends message at fixed rate
@@ -115,7 +115,6 @@ class mykilobot : public kilobot
 	{
 		distance = estimate_distance(distance_measurement);
 		theta=t;
-		
+
 	}
 };
-
