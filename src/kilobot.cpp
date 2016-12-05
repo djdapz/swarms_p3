@@ -115,12 +115,12 @@ class mykilobot : public kilobot
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
-			if(id ==1){
-				std::cout<<"=====================" << movement_mag<<std::endl;
-				std::cout<<"running_x	:  " << running_x<<std::endl;
-				std::cout<<"running_y	:  " << running_y<<std::endl;
-				std::cout<<"movement_mag:  " << movement_mag<<std::endl;
-			}
+			// if(id ==1){
+			// 	std::cout<<"====================="<<std::endl;
+			// 	std::cout<<"running_x	:  " << running_x<<std::endl;
+			// 	std::cout<<"running_y	:  " << running_y<<std::endl;
+			// 	std::cout<<"movement_mag:  " << movement_mag<<std::endl;
+			// }
 
 			running_x = 0;
 			running_y = 0;
@@ -185,6 +185,10 @@ class mykilobot : public kilobot
 
 		//decide on magnitued
 		double force_mag = gravity * 1 * 1 / (distance * distance);
+		if(id ==1){
+			std::cout<<"====================="<<std::endl;
+			std::cout<<"force_mag	:  " << force_mag<<std::endl;
+		}
 
 		double force_x = force_mag * cos(theta);
 		double force_y = force_mag * sin(theta);
