@@ -39,7 +39,7 @@ class mykilobot : public kilobot
 				spinup_motors();
 				set_motors(50, 50);
 			}
-		}else if(ticks > 5){
+		}else if(ticks > 6){
 			// if(id==0)
 			// {
 			//
@@ -111,7 +111,7 @@ class mykilobot : public kilobot
 				}
 			}
 
-		}else if(ticks == 5){
+		}else if(ticks == 6){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
@@ -184,11 +184,13 @@ class mykilobot : public kilobot
 		//decide on magnitued
 		double force_mag = gravity * 1 * 1 / (distance * distance);
 
-		if(id == 1){
+		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
 			std::cout<<"============="<<'\n';
 			std::cout<<"force_mag: "<<force_mag<<'\n';
 			std::cout<<"ticks: "<<ticks<<'\n';
+			std::cout<<"gravity: "<<gravity<<'\n';
+			std::cout<<"distance: "<<distance<<'\n';
 
 		}
 
@@ -197,7 +199,7 @@ class mykilobot : public kilobot
 		double force_y = force_mag * sin(theta);
 
 
-		if(ticks <=5){
+		if(ticks <6){
 			running_x = force_x + running_x;
 			running_y = force_y + running_x;
 		}
