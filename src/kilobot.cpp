@@ -191,8 +191,8 @@ class mykilobot : public kilobot
 		// 	std::cout<<"force_mag	:  " << force_mag<<std::endl;
 		// // }
 
-		if(id == 1){
-			std::cout<<'asdfasdfasdfasdf';
+		if(id == 12){
+			std::cout<<"asdfasdfasdfasdf";
 		}
 
 		double force_x = force_mag * cos(theta);
