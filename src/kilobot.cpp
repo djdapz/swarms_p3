@@ -185,10 +185,10 @@ class mykilobot : public kilobot
 
 		//decide on magnitued
 		double force_mag = gravity * 1 * 1 / (distance * distance);
-		if(id == 1){
+		// if(id == 1){
 			std::cout<<"====================="<<std::endl;
 			std::cout<<"force_mag	:  " << force_mag<<std::endl;
-		}
+		// }
 
 		double force_x = force_mag * cos(theta);
 		double force_y = force_mag * sin(theta);
