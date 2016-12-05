@@ -541,7 +541,7 @@ void setup_positions()
 		robots[i] = new mykilobot();
 		int x_pos = rand()%arena_width;
 		int y_pos = rand()%arena_height;
-		std::cout<<"id: "<<id<<'\n';
+		std::cout<<"id: "<<i<<'\n';
 		std::cout<<"x_pos: "<<x_pos<<'\n';
 		std::cout<<"y_pos: "<<id<<'\n';
 		std::cout<<"i==============="<<'\n';
