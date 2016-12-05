@@ -211,6 +211,7 @@ class mykilobot : public kilobot
 	{
 
         distance = estimate_distance(distance_measurement);
+		theta = t;
 
 
 		printf("%d\n\r",distance);
