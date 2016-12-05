@@ -221,6 +221,9 @@ class mykilobot : public kilobot
 			theta = degrees_to_radians(theta);
 		}
 
+		//decide on magnitued
+		double force_mag = gravity * 1 * 1 / (distance * distance);
+
 
 		printf("%d\n\r",distance);
 
