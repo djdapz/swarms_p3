@@ -187,8 +187,8 @@ class mykilobot : public kilobot
 		if(id == 1){
 			set_color(RGB(1,0,0));
 			std::cout<<"here"<<std::endl;
-			std::cout<<"force_mag: "<<force_mag<<std::endl;
-			std::cout<<"ticks: "<<ticks<<std::endl;
+			// std::cout<<"force_mag: "<<force_mag<<std::endl;
+			// std::cout<<"ticks: "<<ticks<<std::endl;
 
 		}
 
