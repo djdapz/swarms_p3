@@ -537,7 +537,7 @@ void setup_positions()
 	// robots[1]->robot_init(400, 400, 0);
 	// robots[1]->id=1;
 
-	for(var i = 0; i < num_robots; i++){
+	for(int i = 0; i < num_robots; i++){
 		robots[i] = new mykilobot();
 
 		robots[i]->robot_init(rand()%arena_width, rand()%arena_height, 0);
