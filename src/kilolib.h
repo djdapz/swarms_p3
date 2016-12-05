@@ -95,7 +95,7 @@ public:
 		//	message_t m;
 		//	m.data[0] = 1;
 		//	m.data[1] = 5;
-		//	m.data[2] = 10; 
+		//	m.data[2] = 10;
 		//	m.data[3] = 1;
 		//	message_rx(&m, &distance_measurement);
 		//}
@@ -156,14 +156,14 @@ public:
 
 	double comm_out_criteria(double x, double y, int sd) //stardard circular transmission area
 	{
-		if (sd>(30*radius)) return 0; // it's more than 10 cm away
+		if (sd>(7*radius)) return 0; // it's more than 7 radius away
 		double d = distance(x,y,pos[0],pos[1]);
-		if (d <  30* radius)
+		if (d <  7* radius)
 			return d;
 		return 0;
 	}
 
-	bool comm_in_criteria(double x, double y, double d, float t, void *cd) 
+	bool comm_in_criteria(double x, double y, double d, float t, void *cd)
 	{
 		distance_measurement = d;
 		theta=t;
@@ -190,7 +190,7 @@ public:
 	{
 		void *m = this->message_tx();
 		if(m)
-		{		
+		{
 		this->message_tx_success();
 		}
 		return m;

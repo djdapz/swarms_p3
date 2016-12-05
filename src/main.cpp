@@ -14,12 +14,12 @@
 #include <thread>
 
 
-#define SIMPLEBMP_OPENGL 
+#define SIMPLEBMP_OPENGL
 #include "simplebmp.h"
 using namespace std;
 
 #define buffer_size 1000000
-#define channels 2 
+#define channels 2
 //#define delay 10 //delay between time steps, use if program is too fast
 #define windowWidth 600 //display window
 #define windowHeight 700 //display window
@@ -180,7 +180,7 @@ bool run_simulation_step()
 	lastrun++;
 
 	total_secs = lastrun / SECOND;
-	
+
 	int secs = total_secs % 60;
 	int mins = (total_secs / 60) % 60;
 	int hours = total_secs / 3600;
@@ -202,10 +202,11 @@ bool run_simulation_step()
 	//update angle to light for robots
 	for(i=0;i<num_robots;i++)
 	{
-
-	robots[i]->compass=fabs(fmod(robots[i]->pos[2],2*PI))-PI;
-	
-
+		if(robots[i]->pos[2]<0) {
+			robots[i]->compass=fmod(robots[i]->pos[2],-2*PI)+PI;
+		} else {
+			robots[i]->compass=fmod(robots[i]->pos[2],2*PI)-PI;
+		}
 	}
 
 	int seed;
@@ -338,7 +339,7 @@ void draw_scene(void)
 
 	takesnapshot = run_simulation_step();
 
-	
+
 	if(takesnapshot)
 	{
 		glColor4f(0, 0, 0, 0);
@@ -384,7 +385,7 @@ void draw_scene(void)
 			{
 				sprintf(file, "%s.final.bmp", log_file_name);
 			}
-			else 
+			else
 			{
 				sprintf(file, "%s.%04d.bmp", log_file_name, snapshottaken);
 			}
@@ -393,7 +394,7 @@ void draw_scene(void)
 
 		glutSwapBuffers();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	}
 
 	if (last)
@@ -447,16 +448,16 @@ void key_input(unsigned char key, int x, int y)
 	case 27:
 		exit(0);
 		break;
-	case 'w'://up 
+	case 'w'://up
 		view_y += 100;
 		break;
-	case 'a'://up 
+	case 'a'://up
 		view_x -= 100;
 		break;
-	case 's'://up 
+	case 's'://up
 		view_y -= 100;
 		break;
-	case 'd'://up 
+	case 'd'://up
 		view_x += 100;
 		break;
 	case '-':
@@ -499,29 +500,49 @@ void on_idle(void) {
 
 void setup_positions()
 {
-	
-	
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+	///////////////////////////////////////////////////
+
+
 	int k = 0;
 	int columns = 10; // 10x10 i.e. 10 columns, 10 rows
 	int rows = (int)(num_robots / columns);
 	if (num_robots % columns) rows++;
  	//robots are touching so seperation should be their diameter
 	int horizontal_separation = 15*radius;
-	int vertical_separation = 2*radius; 
+	int vertical_separation = 2*radius;
 	//place robots in center of screen/arena, aesthetic preference
-	int center_x=arena_width/2-columns/2 * horizontal_separation; 
+	int center_x=arena_width/2-columns/2 * horizontal_separation;
 	int center_y=arena_height/2-rows/2 * vertical_separation;
 
-	
-	robots[0] = new mykilobot();
 
-	robots[0]->robot_init(100, 100, 0);
-	robots[0]->id=0;
+	// robots[0] = new mykilobot();
+	//
+	// robots[0]->robot_init(100, 100, 0);
+	// robots[0]->id=0;
+	//
+	// robots[1] = new mykilobot();
+	//
+	// robots[1]->robot_init(400, 400, 0);
+	// robots[1]->id=1;
 
-	robots[1] = new mykilobot();
+	for(var i = 0; i < num_robots; i++){
+		robots[i] = new mykilobot();
 
-	robots[1]->robot_init(400, 400, 0);
-	robots[1]->id=1;
+		robots[i]->robot_init(rand()%arena_width, rand()%arena_height, 0);
+		robots[i]->id=i;
+	}
 
 
 
@@ -580,7 +601,7 @@ int main(int argc, char **argv)
 	order = (int *) malloc(shuffles * num_robots * sizeof(int));
 	//seed random variable for different random behavior every time
 	unsigned int t = 0;
-	
+
 	if (seed)
 	{
 		t = seed;
@@ -591,10 +612,10 @@ int main(int argc, char **argv)
 	}
 
 	sprintf(log_buffer, "random seed: %d\n", t);
-	
+
 	log_info(log_buffer);
 	srand(t);
-	
+
 	//set the simulation time to 0
 	time_sim = 0;
 
@@ -640,7 +661,7 @@ int main(int argc, char **argv)
 		{
 			run_simulation_step();
 		}
-		
+
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 		glutInitWindowSize(windowWidth, windowHeight);
