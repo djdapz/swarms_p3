@@ -224,8 +224,16 @@ class mykilobot : public kilobot
 		//decide on magnitued
 		double force_mag = gravity * 1 * 1 / (distance * distance);
 
+		if(id == 1 && ticks <=5){
+			set_color(RGB(1,0,0));
+			std::cout<<"============="<<'\n';
+			std::cout<<"force_mag: "<<force_mag<<'\n';
+			std::cout<<"ticks: "<<ticks<<'\n';
+			std::cout<<"gravity: "<<gravity<<'\n';
+			// std::cout<<"distance: "<<distance<<'\n';
+			printf("%d\n\r",distance);
+		}
 
-		printf("%d\n\r",distance);
 
 
 	}
