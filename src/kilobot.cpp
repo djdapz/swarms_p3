@@ -213,6 +213,14 @@ class mykilobot : public kilobot
         distance = estimate_distance(distance_measurement);
 		theta = t;
 
+		//decide on direction
+		if(distance < raidus_goal){
+			//reverse theta
+			theta = radian_to_degree(t);
+			theta += 180;
+			theta = degrees_to_radians(theta);
+		}
+
 
 		printf("%d\n\r",distance);
 
