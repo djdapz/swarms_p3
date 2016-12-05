@@ -157,6 +157,10 @@ class mykilobot : public kilobot
 		distance = estimate_distance(distance_measurement);
 		theta=t;
 
+		if(id == 1){
+			set_color(1,0,0);
+		}
+
 		//caluclate force vector
 
 		//decide on direction
