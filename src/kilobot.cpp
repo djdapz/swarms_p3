@@ -188,7 +188,7 @@ class mykilobot : public kilobot
 			set_color(RGB(1,0,0));
 		}
 
-		std::cout<<"here"<<std::endl;
+		// std::cout<<"here"<<std::endl;
 		double force_x = force_mag * cos(theta);
 		double force_y = force_mag * sin(theta);
 
