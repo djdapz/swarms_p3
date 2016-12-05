@@ -543,7 +543,7 @@ void setup_positions()
 		int y_pos = rand()%arena_height;
 		std::cout<<"id: "<<i<<'\n';
 		std::cout<<"x_pos: "<<x_pos<<'\n';
-		std::cout<<"y_pos: "<<id<<'\n';
+		std::cout<<"y_pos: "<<y_pos<<'\n';
 		std::cout<<"i==============="<<'\n';
 		robots[i]->robot_init(rand()%arena_width, rand()%arena_height, 0);
 		robots[i]->id=i;
