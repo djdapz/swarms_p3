@@ -541,6 +541,7 @@ void setup_positions()
 		robots[i] = new mykilobot();
 
 		robots[i]->robot_init(rand()%arena_width, rand()%arena_height, 0);
+		std::cout<<i<<std::endl;
 		robots[i]->id=i;
 	}
 
