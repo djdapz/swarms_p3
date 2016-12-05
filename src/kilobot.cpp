@@ -236,7 +236,7 @@ class mykilobot : public kilobot
 			printf("ticks:      %d\n\r",ticks);
 			printf("gravity:    %d\n\r",gravity);
 			printf("distance:   %d\n\r",distance);
-			printf("force_mag:  %d\n\r",force_mag);
+			printf("force_mag:  %f\n\r",force_mag);
 		}
 
 
