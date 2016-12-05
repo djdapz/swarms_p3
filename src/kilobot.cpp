@@ -232,7 +232,6 @@ class mykilobot : public kilobot
 			std::cout<<"gravity: "<<gravity<<'\n';
 			// std::cout<<"distance: "<<distance<<'\n';
 			printf("=============\n\r");
-			printf("force_mag:  %d\n\r",force_mag);
 			printf("ticks:      %d\n\r",ticks);
 			printf("gravity:    %d\n\r",gravity);
 			printf("distance:   %d\n\r",distance);
