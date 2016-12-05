@@ -169,9 +169,7 @@ class mykilobot : public kilobot
 		distance = estimate_distance(distance_measurement);
 		theta=t;
 
-		if(id == 1){
-			set_color(RGB(1,0,0));
-		}
+
 
 		//caluclate force vector
 
@@ -185,14 +183,9 @@ class mykilobot : public kilobot
 
 		//decide on magnitued
 		double force_mag = gravity * 1 * 1 / (distance * distance);
-		// // if(id == 1){
-		// 	std::cout<<"====================="<<std::endl;
-		// 	std::cout<<"id			:  " << id<<std::endl;
-		// 	std::cout<<"force_mag	:  " << force_mag<<std::endl;
-		// // }
 
-		if(id == 12){
-			std::cout<<"asdfasdfasdfasdf";
+		if(id == 1){
+			set_color(RGB(1,0,0));
 		}
 
 		double force_x = force_mag * cos(theta);
