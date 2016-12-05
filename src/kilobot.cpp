@@ -158,7 +158,7 @@ class mykilobot : public kilobot
 		theta=t;
 
 		if(id == 1){
-			set_color(1,0,0);
+			set_color(RGB(1,0,0));
 		}
 
 		//caluclate force vector
