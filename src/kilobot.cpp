@@ -222,7 +222,8 @@ class mykilobot : public kilobot
 		}
 
 		//decide on magnitued
-		double force_mag = gravity * 1 * 1 / (distance * distance);
+		int dist_sq	= distance* distance;
+		double force_mag = gravity * 1 * 1 / dist_sq;
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
@@ -235,6 +236,7 @@ class mykilobot : public kilobot
 			printf("ticks:      %d\n\r",ticks);
 			printf("gravity:    %d\n\r",gravity);
 			printf("distance:   %d\n\r",distance);
+			printf("dist_sq:    %d\n\r",dist_sq);
 			printf("force_mag:  %f\n\r",force_mag);
 		}
 
