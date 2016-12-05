@@ -27,7 +27,7 @@ class mykilobot : public kilobot
 	double movement_mag = 0;
 	int ticks = 0;
 	int max_ticks = 14;
-	int mag_threshold = 0;
+	int mag_threshold = 1000;
 
 
 	//main loop
@@ -112,6 +112,7 @@ class mykilobot : public kilobot
 			running_x = 0;
 			running_y = 0;
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
+			std::cout<<"movement_mag"<<std::endl;
 		}
 
 		if(ticks == max_ticks){
