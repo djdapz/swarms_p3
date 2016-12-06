@@ -229,11 +229,11 @@ class mykilobot : public kilobot
 			set_color(RGB(1,0,0));
 			// std::cout<<"distance: "<<distance<<'\n';
 			printf("=============\n\r");
+			printf("compass:    %d\n\r", compass_deg);
 			printf("ticks:      %d\n\r",ticks);
 			printf("gravity:    %d\n\r",gravity);
-			printf("distance:   %d\n\r",distance);
+			printf("distance:   %d\n\r",distance);x
 			printf("force_mag:  %f\n\r",force_mag);
-			printf("compass:    %f\n\r", compass_deg);
 		}
 
 		double force_x = force_mag * cos(theta);
