@@ -29,6 +29,7 @@ class mykilobot : public kilobot
 	int max_ticks = 14;
 	int mag_threshold = 1;
 	int compass_deg = 0;
+	int next_angle_deg = 0;
 
 
 	//main loop
@@ -96,32 +97,113 @@ class mykilobot : public kilobot
 			//
 			// }
 			if(movement_mag > mag_threshold){
-				if(fabs(next_angle-compass)<.3)
-				{
+				int command = 0;
+				int no_turn_zone = 20;
 
+
+				if(next_angle_deg == compass_deg){
+					command == 0;
+				}else if(compass_deg >= 180){
+					if(next_angle_deg < compass_deg){
+						if(next_angle_deg > compass_deg - no_turn_zone){
+							// if in no turn zone
+							command = 0
+						} else if(next_angle_deg > compass_deg -180 {
+							//turn right
+							command = 2;
+						}
+					}else if(
+						if(compass_deg < 360-no_turn_zone-1){
+							//if our no_turn_zone doesnt drop to zero
+							if(next_angle_deg > compass_deg && next_angle_deg < compass_deg + 20){
+								//in no_turn_zone
+								command = 0;
+							}else{
+								//turn left
+								command = 1;
+							}
+						}else{
+							if(next_angle_deg > compass_deg || next_angle_deg < 360 - compass_deg){
+								// no turn zone
+								command = 0;
+							}else{
+								//turn left
+								command = 1;
+							}
+						}
+					)
+				}else{
+
+					if(next_angle_deg > compass_deg){
+						if(next_angle_deg + no_turn_zone < compass_deg){
+							// if in no turn zone
+							command = 0
+						} else if(next_angle_deg < compass_deg + 180){
+							//turn left
+							command = 1;
+						}else{
+							//beyond that zone, turn right
+							command = 2;
+						}
+					}else if(
+						if(compass_deg - no_turn_zone < 180){
+							//if our no_turn_zone doesnt drop to zero
+							if(next_angle_deg > compass_deg - no_turn_zone){
+								//in no_turn_zone
+								command = 0;
+							}else{
+								//turn right
+								command = 2;
+							}
+						}else{
+							//if our compass does drop to zero and the next angle is less
+							//than zero, then the next angle is in the no turn zone
+							// no turn zone
+							command = 0;if(next_angle_deg > compass_deg && next_angle_deg + no_turn_zone < compass_deg){
+								// if in no turn zone
+								command = 0
+							} else if(next_angle_deg < compass_deg + 180 && next_angle_deg > compass_deg){
+								//turn left
+								command = 1;
+						}
+					)
 				}
-				else if(next_angle-compass<0)
+
+
+				printf("%%%%%%%%%%%%%%%%%%%%%%%\n\r");
+				printf("compass:       %d\n\r", compass_deg);
+				printf("next_angle:    %d\n\r", next_angle_deg);
+				if(command = 1)
 				{
 					spinup_motors();
+					if(id ==1){
+						printf("TURN LEFT \n\r",  running_x);
+					}
 					set_motors(kilo_turn_left,0);
-				}
-				else
+				} else if (command == 2)
 				{
+					if(id ==1){
+						printf("TURN RIGHT \n\r",  running_x);
+					}
 					spinup_motors();
 					set_motors(0,kilo_turn_right);
+				}else{
+					if(id ==1){
+						printf("NO TURN \n\r",  running_x);
+					}
 				}
 			}
 
 		}else if(ticks == 6){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
-			int next_angle_deg = radian_to_degree(next_angle);
+			next_angle_deg = radian_to_degree(next_angle);
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
 			if(id ==1){
-				printf("=====================");
-				printf("running_x	   %f\n\r",  running_x);
-				printf("running_y	   %f\n\r",  running_y);
-				printf("movement_mag:  %f\n\r",  movement_mag);
+				printf("=====================\n\r");
+				printf("running_x	   %f\n\r", running_x);
+				printf("running_y	   %f\n\r", running_y);
+				printf("movement_mag:  %f\n\r", movement_mag);
 				printf("compass:       %d\n\r", compass_deg);
 				printf("next_angle:    %d\n\r", next_angle_deg);
 				printf("ticks:         %d\n\r", ticks);
