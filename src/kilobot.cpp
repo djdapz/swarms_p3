@@ -70,7 +70,7 @@ class mykilobot : public kilobot
 			// }
 			// else
 			// {
-			// 	//// printf("compass =%f\n\r",compass);
+			// 	//printf("compass =%f\n\r",compass);
 			//
 			// 	if(fabs(compass-1.5)<.1)
 			// 	{
@@ -171,28 +171,28 @@ class mykilobot : public kilobot
 				}
 
 				if(id == 1){
-					// printf("^^^^^^^^^^^^^\n\r");
+					printf("^^^^^^^^^^^^^\n\r");
 					printf("compass:       %d\n\r", compass_deg);
-					// printf("next_angle:    %d\n\r", next_angle_deg);
+					printf("next_angle:    %d\n\r", next_angle_deg);
 				}
 
 				if(command = 1)
 				{
 					spinup_motors();
 					if(id ==1){
-						// printf("TURN LEFT \n\r");
+						printf("TURN LEFT \n\r");
 					}
 					set_motors(kilo_turn_left,0);
 				} else if (command == 2)
 				{
 					if(id ==1){
-						// printf("TURN RIGHT \n\r");
+						printf("TURN RIGHT \n\r");
 					}
 					spinup_motors();
 					set_motors(0,kilo_turn_right);
 				}else{
 					if(id ==1){
-						// printf("NO TURN \n\r");
+						printf("NO TURN \n\r");
 					}
 				}
 			}
@@ -283,7 +283,7 @@ class mykilobot : public kilobot
 	// 		std::cout<<"ticks: "<<ticks<<'\n';
 	// 		std::cout<<"gravity: "<<gravity<<'\n';
 	// 		// std::cout<<"distance: "<<distance<<'\n';
-	// 		f// printf("dist %d\n\r", distance);
+	// 		fprintf("dist %d\n\r", distance);
 	// 	}
 	//
 	//
