@@ -223,7 +223,7 @@ class mykilobot : public kilobot
 
 		//decide on magnitued
 		double force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
-		int compass_deg = radian_to_degree(compass)
+		int compass_deg = radian_to_degree(compass);
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
