@@ -95,11 +95,11 @@ class mykilobot : public kilobot
 			//
 			// }
 			if(movement_mag > mag_threshold){
-				if(fabs(next_angle)<.3)
+				if(fabs(next_angle-compass)<.3)
 				{
 
 				}
-				else if(next_angle<0)
+				else if(next_angle-compass<0)
 				{
 					spinup_motors();
 					set_motors(kilo_turn_left,0);
@@ -226,10 +226,6 @@ class mykilobot : public kilobot
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
-			std::cout<<"============="<<'\n';
-			std::cout<<"force_mag: "<<force_mag<<'\n';
-			std::cout<<"ticks: "<<ticks<<'\n';
-			std::cout<<"gravity: "<<gravity<<'\n';
 			// std::cout<<"distance: "<<distance<<'\n';
 			printf("=============\n\r");
 			printf("ticks:      %d\n\r",ticks);
