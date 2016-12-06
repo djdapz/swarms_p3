@@ -165,7 +165,7 @@ class mykilobot : public kilobot
 				}
 
 
-				printf("%%%%%%%%%%%%%%%%%%%%%%%\n\r");
+				printf("^^^^^^^^^^^^^\n\r");
 				printf("compass:       %d\n\r", compass_deg);
 				printf("next_angle:    %d\n\r", next_angle_deg);
 				if(command = 1)
