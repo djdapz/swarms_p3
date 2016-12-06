@@ -232,7 +232,7 @@ class mykilobot : public kilobot
 			printf("compass:    %d\n\r", compass_deg);
 			printf("ticks:      %d\n\r",ticks);
 			printf("gravity:    %d\n\r",gravity);
-			printf("distance:   %d\n\r",distance);x
+			printf("distance:   %d\n\r",distance);
 			printf("force_mag:  %f\n\r",force_mag);
 		}
 
