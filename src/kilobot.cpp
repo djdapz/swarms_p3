@@ -170,10 +170,12 @@ class mykilobot : public kilobot
 					}
 				}
 
+				if(id == 1){
+					printf("^^^^^^^^^^^^^\n\r");
+					printf("compass:       %d\n\r", compass_deg);
+					printf("next_angle:    %d\n\r", next_angle_deg);
+				}
 
-				printf("^^^^^^^^^^^^^\n\r");
-				printf("compass:       %d\n\r", compass_deg);
-				printf("next_angle:    %d\n\r", next_angle_deg);
 				if(command = 1)
 				{
 					spinup_motors();
