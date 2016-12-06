@@ -30,6 +30,7 @@ class mykilobot : public kilobot
 	int mag_threshold = 1;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
+	int no_turn_zone = 20;
 
 
 	//main loop
@@ -97,78 +98,8 @@ class mykilobot : public kilobot
 			//
 			// }
 			if(movement_mag > mag_threshold){
-				int command = 0;
-				int no_turn_zone = 20;
 
-
-				if(next_angle_deg == compass_deg){
-					command == 0;
-				}
-				else if(compass_deg >= 180){
-					if(next_angle_deg < compass_deg){
-						if(next_angle_deg > compass_deg - no_turn_zone){
-							// if in no turn zone
-							command = 0;
-						} else if(next_angle_deg > compass_deg -180 ){
-							//turn right
-							command = 2;
-						}
-					}else{
-						if(compass_deg < 360-no_turn_zone-1){
-							//if our no_turn_zone doesnt drop to zero
-							if(next_angle_deg > compass_deg && next_angle_deg < compass_deg + 20){
-								//in no_turn_zone
-								command = 0;
-							}else{
-								//turn left
-								command = 1;
-							}
-						}else{
-							if(next_angle_deg > compass_deg || next_angle_deg < 360 - compass_deg){
-								// no turn zone
-								command = 0;
-							}else{
-								//turn left
-								command = 1;
-							}
-						}
-					}
-				}
-				else{
-					//compass_deg < 180
-					if(next_angle_deg > compass_deg){
-						if(next_angle_deg + no_turn_zone < compass_deg){
-							// if in no turn zone
-							command = 0;
-						} else if(next_angle_deg < compass_deg + 180){
-							//turn left
-							command = 1;
-						}else{
-							//beyond that zone, turn right
-							command = 2;
-						}
-					}else{
-						//next_angle_deg < compass_deg
-						if(compass_deg - no_turn_zone < 180){
-							//if our no_turn_zone doesnt drop to zero
-							if(next_angle_deg > compass_deg - no_turn_zone){
-								//in no_turn_zone
-								command = 0;
-							}
-							else{
-								//turn right
-								command = 2;
-							}
-						}
-
-						else{
-							//if our compass does drop to zero and the next angle is less
-							//than zero, then the next angle is in the no turn zone
-							// no turn zone
-							command = 0;
-						}
-					}
-				}
+				int command = choose_direction_to_turn(compass_deg, next_angle_deg);
 
 				if(id == 1){
 					printf("^^^^^^^^^^^^^\n\r");
@@ -344,4 +275,104 @@ class mykilobot : public kilobot
 	double degrees_to_radians(int degrees){
 		return ((double)degrees- 180)*(2*M_PI)/360;
 	}
+
+	int choose_direction_to_turn(int compass_deg, int next_angle_deg){
+		if(next_angle_deg == compass_deg){
+        	return 0;
+	    }
+	    else if(compass_deg >= 180){
+	        if(next_angle_deg < compass_deg){
+	            if(compass_deg + no_turn_zone > 360){
+	                if(360 - compass_deg + next_angle_deg < no_turn_zone){
+	                    return 0;
+	                }
+	                else if(next_angle_deg > compass_deg - no_turn_zone){
+	                    // if in no turn zone
+	                    return 0;
+	                } else if(next_angle_deg > compass_deg -180 ){
+	                    //turn right
+	                    return 2;
+	                }else{
+	                    return 1;
+	                }
+	            }else{
+	                if(next_angle_deg > compass_deg - no_turn_zone){
+	                    // if in no turn zone
+	                    return 0;
+	                } else if(next_angle_deg > compass_deg -180 ){
+	                    //turn right
+	                    return 2;
+	                }else{
+	                    return 1;
+	                }
+	            }
+	        }else{
+	            if(compass_deg < 360-no_turn_zone-1){
+	                //if our no_turn_zone doesnt drop to zero
+	                if(next_angle_deg > compass_deg && next_angle_deg < compass_deg + 20){
+	                    //in no_turn_zone
+	                    return 0;
+	                }else{
+	                    //turn left
+	                    return 1;
+	                }
+	            }else{
+	                if(next_angle_deg > compass_deg || next_angle_deg < 360 - compass_deg){
+	                    // no turn zone
+	                    return 0;
+	                }else{
+	                    //turn left
+	                    return 1;
+	                }
+	            }
+	        }
+	    }
+	    else{
+	        //compass_deg < 180
+	        if(next_angle_deg > compass_deg){
+	            if(compass_deg - no_turn_zone <0){
+	                if(360-next_angle_deg+compass_deg < no_turn_zone){
+	                    return 0;
+	                }else if(next_angle_deg < compass_deg + 180){
+	                    //turn left
+	                    return 1;
+	                }else{
+	                    //beyond that zone, turn right
+	                    return 2;
+	                }
+	            }
+	            else if((next_angle_deg - no_turn_zone) < compass_deg){
+	                // if in no turn zone
+	                return 0;
+	            } else if(next_angle_deg < compass_deg + 180){
+	                //turn left
+	                return 1;
+	            }else{
+	                //beyond that zone, turn right
+	                return 2;
+	            }
+	        }else{
+	            //next_angle_deg < compass_deg
+	            if(compass_deg - no_turn_zone < 180){
+	                //if our no_turn_zone doesnt drop to zero
+	                if(next_angle_deg > compass_deg - no_turn_zone){
+	                    //in no_turn_zone
+	                    return 0;
+	                }
+	                else{
+	                    //turn right
+	                    return 2;
+	                }
+	            }
+
+	            else{
+	                //if our compass does drop to zero and the next angle is less
+	                //than zero, then the next angle is in the no turn zone
+	                // no turn zone
+	                return 0;
+	            }
+	        }
+	    }
+	}
+
 };
