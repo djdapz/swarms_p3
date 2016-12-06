@@ -232,6 +232,7 @@ class mykilobot : public kilobot
 			printf("gravity:    %d\n\r",gravity);
 			printf("distance:   %d\n\r",distance);
 			printf("force_mag:  %f\n\r",force_mag);
+			printf("compass:    %f\n\r", radian_to_degree(compass));
 		}
 
 		double force_x = force_mag * cos(theta);
