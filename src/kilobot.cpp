@@ -112,7 +112,7 @@ class mykilobot : public kilobot
 							//turn right
 							command = 2;
 						}
-					}else if(
+					}else{
 						if(compass_deg < 360-no_turn_zone-1){
 							//if our no_turn_zone doesnt drop to zero
 							if(next_angle_deg > compass_deg && next_angle_deg < compass_deg + 20){
@@ -131,7 +131,7 @@ class mykilobot : public kilobot
 								command = 1;
 							}
 						}
-					)
+					}
 				}else{
 
 					if(next_angle_deg > compass_deg){
