@@ -223,6 +223,7 @@ class mykilobot : public kilobot
 
 		//decide on magnitued
 		double force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
+		int compass_deg = radian_to_degree(compass)
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
@@ -232,7 +233,7 @@ class mykilobot : public kilobot
 			printf("gravity:    %d\n\r",gravity);
 			printf("distance:   %d\n\r",distance);
 			printf("force_mag:  %f\n\r",force_mag);
-			printf("compass:    %f\n\r", radian_to_degree(compass));
+			printf("compass:    %f\n\r", compass_deg);
 		}
 
 		double force_x = force_mag * cos(theta);
