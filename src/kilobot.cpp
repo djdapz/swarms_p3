@@ -28,12 +28,13 @@ class mykilobot : public kilobot
 	int ticks = 0;
 	int max_ticks = 14;
 	int mag_threshold = 1;
+	int compass_deg = 0;
 
 
 	//main loop
 	void loop()
 	{
-
+		compass_deg = radian_to_degree(compass);
 		if(ticks >=11){
 			if(movement_mag > mag_threshold){
 				spinup_motors();
@@ -114,13 +115,20 @@ class mykilobot : public kilobot
 		}else if(ticks == 6){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
+			int next_angle_deg = radian_to_degree(next_angle);
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
-			// if(id ==1){
-			// 	std::cout<<"====================="<<std::endl;
-			// 	std::cout<<"running_x	:  " << running_x<<std::endl;
-			// 	std::cout<<"running_y	:  " << running_y<<std::endl;
-			// 	std::cout<<"movement_mag:  " << movement_mag<<std::endl;
-			// }
+			if(id ==1){
+				printf("=====================");
+				printf("running_x	   %f\n\r",  running_x);
+				printf("running_y	   %f\n\r",  running_y);
+				printf("movement_mag:  %f\n\r",  movement_mag);
+				printf("compass:       %d\n\r", compass_deg);
+				printf("next_angle:    %d\n\r", next_angle_deg);
+				printf("ticks:         %d\n\r", ticks);
+				printf("gravity:       %d\n\r", gravity);
+				printf("distance:      %d\n\r", distance);
+				printf("force_mag:     %f\n\r", force_mag);
+			}
 
 			running_x = 0;
 			running_y = 0;
@@ -228,12 +236,7 @@ class mykilobot : public kilobot
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
 			// std::cout<<"distance: "<<distance<<'\n';
-			printf("=============\n\r");
-			printf("compass:    %d\n\r", compass_deg);
-			printf("ticks:      %d\n\r",ticks);
-			printf("gravity:    %d\n\r",gravity);
-			printf("distance:   %d\n\r",distance);
-			printf("force_mag:  %f\n\r",force_mag);
+
 		}
 
 		double force_x = force_mag * cos(theta);
