@@ -70,7 +70,7 @@ class mykilobot : public kilobot
 			// }
 			// else
 			// {
-			// 	//printf("compass =%f\n\r",compass);
+			// 	//// printf("compass =%f\n\r",compass);
 			//
 			// 	if(fabs(compass-1.5)<.1)
 			// 	{
@@ -171,28 +171,28 @@ class mykilobot : public kilobot
 				}
 
 				if(id == 1){
-					printf("^^^^^^^^^^^^^\n\r");
+					// printf("^^^^^^^^^^^^^\n\r");
 					printf("compass:       %d\n\r", compass_deg);
-					printf("next_angle:    %d\n\r", next_angle_deg);
+					// printf("next_angle:    %d\n\r", next_angle_deg);
 				}
 
 				if(command = 1)
 				{
 					spinup_motors();
 					if(id ==1){
-						printf("TURN LEFT \n\r");
+						// printf("TURN LEFT \n\r");
 					}
 					set_motors(kilo_turn_left,0);
 				} else if (command == 2)
 				{
 					if(id ==1){
-						printf("TURN RIGHT \n\r");
+						// printf("TURN RIGHT \n\r");
 					}
 					spinup_motors();
 					set_motors(0,kilo_turn_right);
 				}else{
 					if(id ==1){
-						printf("NO TURN \n\r");
+						// printf("NO TURN \n\r");
 					}
 				}
 			}
@@ -203,15 +203,15 @@ class mykilobot : public kilobot
 			next_angle_deg = radian_to_degree(next_angle);
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
 			if(id ==1){
-				printf("=====================\n\r");
-				printf("running_x	   %f\n\r", running_x);
-				printf("running_y	   %f\n\r", running_y);
-				printf("movement_mag:  %f\n\r", movement_mag);
-				printf("compass:       %d\n\r", compass_deg);
-				printf("next_angle:    %d\n\r", next_angle_deg);
-				printf("ticks:         %d\n\r", ticks);
-				printf("gravity:       %d\n\r", gravity);
-				printf("distance:      %d\n\r", distance);
+				// printf("=====================\n\r");
+				// printf("running_x	   %f\n\r", running_x);
+				// printf("running_y	   %f\n\r", running_y);
+				// printf("movement_mag:  %f\n\r", movement_mag);
+				// printf("compass:       %d\n\r", compass_deg);
+				// printf("next_angle:    %d\n\r", next_angle_deg);
+				// printf("ticks:         %d\n\r", ticks);
+				// printf("gravity:       %d\n\r", gravity);
+				// printf("distance:      %d\n\r", distance);
 			}
 
 			running_x = 0;
@@ -283,7 +283,7 @@ class mykilobot : public kilobot
 	// 		std::cout<<"ticks: "<<ticks<<'\n';
 	// 		std::cout<<"gravity: "<<gravity<<'\n';
 	// 		// std::cout<<"distance: "<<distance<<'\n';
-	// 		fprintf("dist %d\n\r", distance);
+	// 		f// printf("dist %d\n\r", distance);
 	// 	}
 	//
 	//
