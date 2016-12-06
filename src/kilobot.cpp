@@ -172,19 +172,19 @@ class mykilobot : public kilobot
 				{
 					spinup_motors();
 					if(id ==1){
-						printf("TURN LEFT \n\r",  running_x);
+						printf("TURN LEFT \n\r");
 					}
 					set_motors(kilo_turn_left,0);
 				} else if (command == 2)
 				{
 					if(id ==1){
-						printf("TURN RIGHT \n\r",  running_x);
+						printf("TURN RIGHT \n\r");
 					}
 					spinup_motors();
 					set_motors(0,kilo_turn_right);
 				}else{
 					if(id ==1){
-						printf("NO TURN \n\r",  running_x);
+						printf("NO TURN \n\r");
 					}
 				}
 			}
