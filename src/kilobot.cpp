@@ -107,8 +107,8 @@ class mykilobot : public kilobot
 					if(next_angle_deg < compass_deg){
 						if(next_angle_deg > compass_deg - no_turn_zone){
 							// if in no turn zone
-							command = 0
-						} else if(next_angle_deg > compass_deg -180 {
+							command = 0;
+						} else if(next_angle_deg > compass_deg -180 ){
 							//turn right
 							command = 2;
 						}
@@ -137,7 +137,7 @@ class mykilobot : public kilobot
 					if(next_angle_deg > compass_deg){
 						if(next_angle_deg + no_turn_zone < compass_deg){
 							// if in no turn zone
-							command = 0
+							command = 0;
 						} else if(next_angle_deg < compass_deg + 180){
 							//turn left
 							command = 1;
@@ -145,7 +145,8 @@ class mykilobot : public kilobot
 							//beyond that zone, turn right
 							command = 2;
 						}
-					}else if(
+					}else{
+						//next_angle_deg < compass_deg
 						if(compass_deg - no_turn_zone < 180){
 							//if our no_turn_zone doesnt drop to zero
 							if(next_angle_deg > compass_deg - no_turn_zone){
@@ -159,14 +160,8 @@ class mykilobot : public kilobot
 							//if our compass does drop to zero and the next angle is less
 							//than zero, then the next angle is in the no turn zone
 							// no turn zone
-							command = 0;if(next_angle_deg > compass_deg && next_angle_deg + no_turn_zone < compass_deg){
-								// if in no turn zone
-								command = 0
-							} else if(next_angle_deg < compass_deg + 180 && next_angle_deg > compass_deg){
-								//turn left
-								command = 1;
-						}
-					)
+							command = 0;
+					}
 				}
 
 
