@@ -165,7 +165,7 @@ class mykilobot : public kilobot
 	{
 
 		out_message.type = NORMAL;
-		out_message.message[0] = id;
+		out_message.data[0] = id;
 		out_message.crc = message_crc(&out_message);
 		set_color(RGB(0,1,0)); //starting color doesn't matter
 	}
@@ -238,7 +238,7 @@ class mykilobot : public kilobot
 
         distance = estimate_distance(distance_measurement);
 		theta = t;
-		int in_id = message->message[0]
+		int in_id = message->data[0];
 
 		//decide on direction
 		if(distance < raidus_goal){
