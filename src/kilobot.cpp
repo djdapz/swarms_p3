@@ -9,7 +9,7 @@ class mykilobot : public kilobot
 	float theta;
 	float next_angle;
 
-	int gravity = 12000;
+	int gravity = 1200;
 	int raidus_goal = 50;
 
 	int motion=0;
