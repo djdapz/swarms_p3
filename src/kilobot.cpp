@@ -101,11 +101,11 @@ class mykilobot : public kilobot
 
 				int command = choose_direction_to_turn(compass_deg, next_angle_deg);
 
-				if(id == 1){
-					printf("^^^^^^^^^^^^^\n\r");
-					printf("compass:       %d\n\r", compass_deg);
-					printf("next_angle:    %d\n\r", next_angle_deg);
-				}
+				// if(id == 1){
+				// 	printf("^^^^^^^^^^^^^\n\r");
+				// 	printf("compass:       %d\n\r", compass_deg);
+				// 	printf("next_angle:    %d\n\r", next_angle_deg);
+				// }
 
 				if(command == 1)
 				{
@@ -134,15 +134,15 @@ class mykilobot : public kilobot
 			next_angle_deg = radian_to_degree(next_angle);
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
 			if(id ==1){
-				// printf("=====================\n\r");
-				// printf("running_x	   %f\n\r", running_x);
-				// printf("running_y	   %f\n\r", running_y);
-				// printf("movement_mag:  %f\n\r", movement_mag);
-				// printf("compass:       %d\n\r", compass_deg);
-				// printf("next_angle:    %d\n\r", next_angle_deg);
-				// printf("ticks:         %d\n\r", ticks);
-				// printf("gravity:       %d\n\r", gravity);
-				// printf("distance:      %d\n\r", distance);
+				printf("=====================\n\r");
+				printf("running_x	   %f\n\r", running_x);
+				printf("running_y	   %f\n\r", running_y);
+				printf("movement_mag:  %f\n\r", movement_mag);
+				printf("compass:       %d\n\r", compass_deg);
+				printf("next_angle:    %d\n\r", next_angle_deg);
+				printf("ticks:         %d\n\r", ticks);
+				printf("gravity:       %d\n\r", gravity);
+				printf("distance:      %d\n\r", distance);
 			}
 
 			running_x = 0;
