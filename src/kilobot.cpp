@@ -165,6 +165,7 @@ class mykilobot : public kilobot
 	{
 
 		out_message.type = NORMAL;
+		out_message.message[0] = id;
 		out_message.crc = message_crc(&out_message);
 		set_color(RGB(0,1,0)); //starting color doesn't matter
 	}
@@ -237,6 +238,7 @@ class mykilobot : public kilobot
 
         distance = estimate_distance(distance_measurement);
 		theta = t;
+		int in_id = message->message[0]
 
 		//decide on direction
 		if(distance < raidus_goal){
@@ -247,12 +249,16 @@ class mykilobot : public kilobot
 		}
 
 		//decide on magnitued
-		double force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
+		if(id % 1 == in_id%1){
+			double force_mag = (double)gravity * 1 * 1 / (((double)distance/sqrt(2)) * ((double)distance/sqrt(2)));
+		}else{
+			double force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
+		}
+
 		int compass_deg = radian_to_degree(compass);
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
-			// std::cout<<"distance: "<<distance<<'\n';
 
 		}
 
