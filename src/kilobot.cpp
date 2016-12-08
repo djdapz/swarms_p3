@@ -24,7 +24,7 @@ class mykilobot : public kilobot
 
 	double running_x = 0;
 	double running_y = 0;
-	double movement_mag = 0;
+	double movement_mag = .1;
 	int ticks = 0;
 	int max_ticks = 14;
 	int mag_threshold = 1;
