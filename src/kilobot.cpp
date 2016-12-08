@@ -24,10 +24,12 @@ class mykilobot : public kilobot
 
 	double running_x = 0;
 	double running_y = 0;
-	double movement_mag = .1;
+	double movement_mag = 0;
 	int ticks = 0;
-	int max_ticks = 14;
-	int mag_threshold = 1;
+	int max_ticks = 30;
+	int moving_ticks = 20;
+	int turning_ticks = 10;
+	int mag_threshold = .1;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
 	int no_turn_zone = 20;
@@ -37,12 +39,12 @@ class mykilobot : public kilobot
 	void loop()
 	{
 		compass_deg = radian_to_degree(compass);
-		if(ticks >=11){
+		if(ticks >=moving_ticks){
 			if(movement_mag > mag_threshold){
 				spinup_motors();
 				set_motors(50, 50);
 			}
-		}else if(ticks > 6){
+		}else if(ticks > turning_ticks){
 			// if(id==0)
 			// {
 			//
@@ -128,7 +130,7 @@ class mykilobot : public kilobot
 				}
 			}
 
-		}else if(ticks == 6){
+		}else if(ticks == turning_ticks){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
 			next_angle_deg = radian_to_degree(next_angle);
@@ -258,7 +260,7 @@ class mykilobot : public kilobot
 		double force_y = force_mag * sin(theta);
 
 
-		if(ticks <6){
+		if(ticks <turning_ticks){
 			running_x = force_x + running_x;
 			running_y = force_y + running_x;
 		}
