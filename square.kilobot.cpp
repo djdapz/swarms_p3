@@ -129,7 +129,10 @@ class mykilobot : public kilobot
 					}
 				}
 			}
-
+			else{
+				spinup_motors();
+				set_motors(0,0);
+			}
 		}else if(ticks == turning_ticks){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
@@ -149,6 +152,9 @@ class mykilobot : public kilobot
 
 			running_x = 0;
 			running_y = 0;
+		}else{
+			spinup_motors();
+			set_motors(0,0);
 		}
 
 		if(ticks == max_ticks){
@@ -254,6 +260,16 @@ class mykilobot : public kilobot
 			force_mag = (double)gravity * 1 * 1 / (((double)distance/sqrt(2)) * ((double)distance/sqrt(2)));
 		}else{
 			force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
+		}
+
+		if(distance < 20){
+			// to keep id's from getting larger that 1 byte
+			//id's dont need to be unique
+			if(id < 200){
+				id = id + 1;
+			}else{
+				id = id -1;
+			}
 		}
 
 		int compass_deg = radian_to_degree(compass);

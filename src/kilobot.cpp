@@ -34,7 +34,6 @@ class mykilobot : public kilobot
 	int next_angle_deg = 0;
 	int no_turn_zone = 20;
 
-
 	//main loop
 	void loop()
 	{
@@ -129,7 +128,10 @@ class mykilobot : public kilobot
 					}
 				}
 			}
-
+			else{
+				spinup_motors();
+				set_motors(0,0);
+			}
 		}else if(ticks == turning_ticks){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
@@ -149,6 +151,9 @@ class mykilobot : public kilobot
 
 			running_x = 0;
 			running_y = 0;
+		}else{
+			spinup_motors();
+			set_motors(0,0);
 		}
 
 		if(ticks == max_ticks){
@@ -165,7 +170,6 @@ class mykilobot : public kilobot
 	{
 
 		out_message.type = NORMAL;
-		out_message.data[0] = id;
 		out_message.crc = message_crc(&out_message);
 		set_color(RGB(0,1,0)); //starting color doesn't matter
 	}
@@ -238,8 +242,6 @@ class mykilobot : public kilobot
 
         distance = estimate_distance(distance_measurement);
 		theta = t;
-		int in_id = message->data[0];
-		double force_mag = 0;
 
 		//decide on direction
 		if(distance < raidus_goal){
@@ -250,12 +252,7 @@ class mykilobot : public kilobot
 		}
 
 		//decide on magnitued
-		if(id % 1 == in_id%1){
-			force_mag = (double)gravity * 1 * 1 / (((double)distance/sqrt(2)) * ((double)distance/sqrt(2)));
-		}else{
-			force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
-		}
-
+		double force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
 		int compass_deg = radian_to_degree(compass);
 
 		if(id == 1 && ticks <=5){
