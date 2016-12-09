@@ -60,14 +60,9 @@ class mykilobot : public kilobot
 				if(command == 1)
 				{
 					spinup_motors();
-					if(id ==1){
-					}
 					set_motors(kilo_turn_left,0);
 				} else if (command == 2)
 				{
-					if(id ==1){
-						printf("TURN RIGHT \n\r");
-					}
 					spinup_motors();
 					set_motors(0,kilo_turn_right);
 				}else{
