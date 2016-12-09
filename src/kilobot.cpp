@@ -220,7 +220,9 @@ class mykilobot : public kilobot
 
 
 	int radian_to_degree(double radians){
-		return (int)radians * 360 / (2*M_PI) + 180;
+		double intermediate = radians;
+		intermediate = intermediate/(2*M_PI);
+		return (int)intermediate + 180;
 	}
 
 	double degrees_to_radians(int degrees){
