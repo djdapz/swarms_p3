@@ -43,13 +43,13 @@ class mykilobot : public kilobot
 		if(ticks > data_ticks){
 			spinup_motors();
 			set_motors(kilo_turn_right,0);
-			if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
-				command = 0;
-			}else if(next_angle_deg > 180){
-				command = 2;
-			}else{
-				command = 1;
-			}
+			// if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
+			// 	command = 0;
+			// }else if(next_angle_deg > 180){
+			// 	command = 2;
+			// }else{
+			// 	command = 1;
+			// }
 
 			if(id == 1){
 				printf("^^^^^^^^^^^^^\n\r");
