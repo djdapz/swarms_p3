@@ -37,68 +37,75 @@ class mykilobot : public kilobot
 	void loop()
 	{
 		compass_deg = radian_to_degree(compass);
-
-		if(ticks > data_ticks){
-			if(movement_mag > mag_threshold){
-
-				int command = choose_direction_to_turn(compass_deg, next_angle_deg);
-
-				if(id == 1){
-					printf("^^^^^^^^^^^^^\n\r");
-					printf("compass:       %d\n\r", compass_deg);
-					printf("next_angle:    %d\n\r", next_angle_deg);
-
-					if(command == 1){
-						printf("TURN LEFT \n\r");
-					}else if (command == 2){
-						printf("TURN RIGHT \n\r");
-					}else{
-						printf("Move forward \n\r");
-					}
-				}
-
-				if(command == 1)
-				{
-					spinup_motors();
-					set_motors(kilo_turn_left,0);
-				} else if (command == 2)
-				{
-					spinup_motors();
-					set_motors(0,kilo_turn_right);
-				}else{
-					if(movement_mag > mag_threshold){
-						spinup_motors();
-						set_motors(50, 50);
-					}
-				}
-			}
-			else{
-				spinup_motors();
-				set_motors(0,0);
-			}
-		}else if(ticks == data_ticks){
-			double composite_dir_rad = atan2(running_y, running_x);
-			next_angle = composite_dir_rad;
-			next_angle_deg = radian_to_degree(next_angle);
-			movement_mag = sqrt(running_x*running_x + running_y*running_y);
-			if(id ==1){
-				printf("=====================\n\r");
-				printf("running_x	   %f\n\r", running_x);
-				printf("running_y	   %f\n\r", running_y);
-				printf("movement_mag:  %f\n\r", movement_mag);
+		spinup_motors();
+		set_motors(kilo_turn_left, 0);
+		if(id == 1){
+				printf("^^^^^^^^^^^^^\n\r");
 				printf("compass:       %d\n\r", compass_deg);
 				printf("next_angle:    %d\n\r", next_angle_deg);
-				printf("ticks:         %d\n\r", ticks);
-				printf("gravity:       %d\n\r", gravity);
-				printf("distance:      %d\n\r", distance);
 			}
-
-			running_x = 0;
-			running_y = 0;
-		}else{
-			spinup_motors();
-			set_motors(0,0);
-		}
+		// if(ticks > data_ticks){
+		// 	if(movement_mag > mag_threshold){
+		//
+		// 		int command = choose_direction_to_turn(compass_deg, next_angle_deg);
+		//
+		// 		if(id == 1){
+		// 			printf("^^^^^^^^^^^^^\n\r");
+		// 			printf("compass:       %d\n\r", compass_deg);
+		// 			printf("next_angle:    %d\n\r", next_angle_deg);
+		//
+		// 			if(command == 1){
+		// 				printf("TURN LEFT \n\r");
+		// 			}else if (command == 2){
+		// 				printf("TURN RIGHT \n\r");
+		// 			}else{
+		// 				printf("Move forward \n\r");
+		// 			}
+		// 		}
+		//
+		// 		if(command == 1)
+		// 		{
+		// 			spinup_motors();
+		// 			set_motors(kilo_turn_left,0);
+		// 		} else if (command == 2)
+		// 		{
+		// 			spinup_motors();
+		// 			set_motors(0,kilo_turn_right);
+		// 		}else{
+		// 			if(movement_mag > mag_threshold){
+		// 				spinup_motors();
+		// 				set_motors(50, 50);
+		// 			}
+		// 		}
+		// 	}
+		// 	else{
+		// 		spinup_motors();
+		// 		set_motors(0,0);
+		// 	}
+		// }
+		// else if(ticks == data_ticks){
+		// 	double composite_dir_rad = atan2(running_y, running_x);
+		// 	next_angle = composite_dir_rad;
+		// 	next_angle_deg = radian_to_degree(next_angle);
+		// 	movement_mag = sqrt(running_x*running_x + running_y*running_y);
+		// 	if(id ==1){
+		// 		printf("=====================\n\r");
+		// 		printf("running_x	   %f\n\r", running_x);
+		// 		printf("running_y	   %f\n\r", running_y);
+		// 		printf("movement_mag:  %f\n\r", movement_mag);
+		// 		printf("compass:       %d\n\r", compass_deg);
+		// 		printf("next_angle:    %d\n\r", next_angle_deg);
+		// 		printf("ticks:         %d\n\r", ticks);
+		// 		printf("gravity:       %d\n\r", gravity);
+		// 		printf("distance:      %d\n\r", distance);
+		// 	}
+		//
+		// 	running_x = 0;
+		// 	running_y = 0;
+		// }else{
+		// 	spinup_motors();
+		// 	set_motors(0,0);
+		// }
 
 		if(ticks == max_ticks){
 			ticks = 0;
