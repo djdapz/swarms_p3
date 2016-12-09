@@ -19,7 +19,6 @@ class mykilobot : public kilobot
 	struct mydata {
 		unsigned int data1;
 		unsigned int data2;
-
 	};
 
 	double running_x = 0;
@@ -123,8 +122,7 @@ class mykilobot : public kilobot
 	}
 
 	//executed once at start
-	void setup()
-	{
+	void setup(){
 
 		out_message.type = NORMAL;
 		out_message.crc = message_crc(&out_message);
@@ -132,15 +130,13 @@ class mykilobot : public kilobot
 	}
 
 	//executed on successfull message send
-	void message_tx_success()
-	{
+	void message_tx_success(){
 		//set_color(RGB(1,0,0));
 
 	}
 
 	//sends message at fixed rate
-	message_t *message_tx()
-	{
+	message_t *message_tx(){
 		static int count = rand();
 		count--;
 		if (!(count % 10))
@@ -151,9 +147,7 @@ class mykilobot : public kilobot
 	}
 
 
-	void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t)
-
-	{
+	void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t){
 
         distance = estimate_distance(distance_measurement);
 		theta = t;
@@ -162,7 +156,12 @@ class mykilobot : public kilobot
 		if(distance < raidus_goal){
 			//reverse theta
 			theta = radian_to_degree(t);
-			theta += 180;
+			if(theta > 180){
+				theta -= 180;
+			}else{
+				theta += 180;
+			}
+
 			theta = degrees_to_radians(theta);
 			printf("TOO CLOSE\n\r");
 		}
@@ -179,7 +178,7 @@ class mykilobot : public kilobot
 		double force_y = force_mag * sin(theta);
 
 
-		if(ticks <data_ticks){
+		if(ticks < data_ticks){
 			running_x = force_x + running_x;
 			running_y = force_y + running_x;
 		}
