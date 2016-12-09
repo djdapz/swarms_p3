@@ -47,11 +47,12 @@ class mykilobot : public kilobot
 					printf("^^^^^^^^^^^^^\n\r");
 					printf("compass:       %d\n\r", compass_deg);
 					printf("next_angle:    %d\n\r", next_angle_deg);
+
 					if(command == 1){
 						printf("TURN LEFT \n\r");
-					}else if (command == 2)[
+					}else if (command == 2){
 						printf("TURN RIGHT \n\r");
-					]else{
+					}else{
 						printf("NO TURN \n\r");
 					}
 				}
@@ -212,7 +213,7 @@ class mykilobot : public kilobot
 		double force_y = force_mag * sin(theta);
 
 
-		if(ticks <data_tick){
+		if(ticks <data_ticks){
 			running_x = force_x + running_x;
 			running_y = force_y + running_x;
 		}
