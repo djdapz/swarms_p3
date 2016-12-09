@@ -26,8 +26,8 @@ class mykilobot : public kilobot
 	double running_y = 0;
 	double movement_mag = 0;
 	int ticks = 0;
-	int max_ticks = 10;
-	int data_ticks = 5;
+	int max_ticks = 30;
+	int data_ticks = 15;
 	int mag_threshold = 0;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
@@ -41,6 +41,8 @@ class mykilobot : public kilobot
 		compass_deg = radian_to_degree(compass);
 		int command;
 		if(ticks > data_ticks){
+			spinup_motors();
+			set_motors(kilo_turn_right,0);
 			if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
 				command = 0;
 			}else if(next_angle_deg > 180){
@@ -49,40 +51,54 @@ class mykilobot : public kilobot
 				command = 1;
 			}
 
-			if(movement_mag > mag_threshold){
-				if(id == 1){
-					printf("^^^^^^^^^^^^^\n\r");
-					printf("compass:       %d\n\r", compass_deg);
-					printf("next_angle:    %d\n\r", next_angle_deg);
+			if(id == 1){
+				printf("^^^^^^^^^^^^^\n\r");
+				printf("compass:       %d\n\r", compass_deg);
+				printf("next_angle:    %d\n\r", next_angle_deg);
 
-					if(command == 1){
-						printf("TURN LEFT \n\r");
-					}else if (command == 2){
-						printf("TURN RIGHT \n\r");
-					}else{
-						printf("Move forward \n\r");
-					}
-				}
-
-				if(command == 1)
-				{
-					spinup_motors();
-					set_motors(0,kilo_turn_left);
-				} else if (command == 2)
-				{
-					spinup_motors();
-					set_motors(kilo_turn_right,0);
+				if(command == 1){
+					printf("TURN LEFT \n\r");
+				}else if (command == 2){
+					printf("TURN RIGHT \n\r");
 				}else{
-					if(movement_mag > mag_threshold){
-						spinup_motors();
-						set_motors(50, 50);
-					}
+					printf("Move forward \n\r");
 				}
-
-			}else{
-				spinup_motors();
-				set_motors(0,0);
 			}
+
+			// if(movement_mag > mag_threshold){
+			// 	if(id == 1){
+			// 		printf("^^^^^^^^^^^^^\n\r");
+			// 		printf("compass:       %d\n\r", compass_deg);
+			// 		printf("next_angle:    %d\n\r", next_angle_deg);
+			//
+			// 		if(command == 1){
+			// 			printf("TURN LEFT \n\r");
+			// 		}else if (command == 2){
+			// 			printf("TURN RIGHT \n\r");
+			// 		}else{
+			// 			printf("Move forward \n\r");
+			// 		}
+			// 	}
+			//
+			// 	if(command == 1)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(0,kilo_turn_left);
+			// 	} else if (command == 2)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(kilo_turn_right,0);
+			// 	}else{
+			// 		if(movement_mag > mag_threshold){
+			// 			spinup_motors();
+			// 			set_motors(50, 50);
+			// 		}
+			// 	}
+			//
+			// }else{
+			// 	spinup_motors();
+			// 	set_motors(0,0);
+			// }
 
 
 
