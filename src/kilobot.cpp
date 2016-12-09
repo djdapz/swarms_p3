@@ -27,7 +27,7 @@ class mykilobot : public kilobot
 	int ticks = 0;
 	int max_ticks = 20;
 	int data_ticks = 10;
-	double mag_threshold = .05;
+	double mag_threshold = .01;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
 	int no_turn_zone = 10;
@@ -40,6 +40,65 @@ class mykilobot : public kilobot
 		compass_deg = radian_to_degree(compass);
 		int command;
 		if(ticks > data_ticks){
+			if(movement_mag > mag_threshold){
+				spinup_motors();
+				set_motors(50, 50);
+			}
+		}else if(ticks > turning_ticks){
+			// if(id==0)
+			// {
+			//
+			// 	if(fabs(theta)<.3)
+			// 	{
+			//
+			// 		spinup_motors();
+			// 		set_motors(50,50);
+			//
+			// 	}
+			// 	else if(theta<0)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(kilo_turn_left,0);
+			//
+			//
+			//
+			// 	}
+			// 	else
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(0,kilo_turn_right);
+			//
+			//
+			// 	}
+			// }
+			// else
+			// {
+			// 	//printf("compass =%f\n\r",compass);
+			//
+			// 	if(fabs(compass-1.5)<.1)
+			// 	{
+			//
+			// 		spinup_motors();
+			// 		set_motors(50,50);
+			//
+			// 	}
+			// 	else if(compass-1.5<0)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(kilo_turn_left,0);
+			//
+			//
+			//
+			// 	}
+			// 	else
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(0,kilo_turn_right);
+			//
+			//
+			// 	}
+			//
+			// }
 			if(movement_mag > mag_threshold){
 
 				if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
@@ -125,6 +184,7 @@ class mykilobot : public kilobot
 	void setup(){
 
 		out_message.type = NORMAL;
+		out_message.data[0] = id;
 		out_message.crc = message_crc(&out_message);
 		set_color(RGB(0,1,0)); //starting color doesn't matter
 	}
@@ -146,11 +206,54 @@ class mykilobot : public kilobot
 		return NULL;
 	}
 
+	// //receives message
+	// void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t)
+	// {
+	// 	distance = estimate_distance(distance_measurement);
+	// 	theta=t;
+	//
+	//
+	//
+	// 	//caluclate force vector
+	//
+	// 	//decide on direction
+	// 	if(distance < raidus_goal){
+	// 		//reverse theta
+	// 		theta = radian_to_degree(t);
+	// 		theta += 180;
+	// 		theta = degrees_to_radians(theta);
+	// 	}
+	//
+	// 	//decide on magnitued
+	// 	double force_mag = gravity * 1 * 1 / (distance * distance);
+	//
+	// 	if(id == 1 && ticks <=5){
+	// 		set_color(RGB(1,0,0));
+	// 		std::cout<<"============="<<'\n';
+	// 		std::cout<<"force_mag: "<<force_mag<<'\n';
+	// 		std::cout<<"ticks: "<<ticks<<'\n';
+	// 		std::cout<<"gravity: "<<gravity<<'\n';
+	// 		// std::cout<<"distance: "<<distance<<'\n';
+	// 		fprintf("dist %d\n\r", distance);
+	// 	}
+	//
+	//
+	// 	double force_x = force_mag * cos(theta);
+	// 	double force_y = force_mag * sin(theta);
+	//
+	//
+	// 	if(ticks <6){
+	// 		running_x = force_x + running_x;
+	// 		running_y = force_y + running_x;
+	// 	}
+	// }
 
 	void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t){
 
         distance = estimate_distance(distance_measurement);
 		theta = t;
+		int in_id = message->data[0];
+		double force_mag = 0;
 
 		//decide on direction
 		if(distance < raidus_goal){
@@ -163,10 +266,26 @@ class mykilobot : public kilobot
 			}
 
 			theta = degrees_to_radians(theta);
+			printf("TOO CLOSE\n\r");
 		}
 
 		//decide on magnitued
-		double force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
+		if(id % 1 == in_id%1){
+			force_mag = (double)gravity * 1 * 1 / (((double)distance/sqrt(2)) * ((double)distance/sqrt(2)));
+		}else{
+			force_mag = (double)gravity * 1 * 1 / ((double)distance * (double)distance);
+		}
+
+		if(distance < 20){
+			// to keep id's from getting larger that 1 byte
+			//id's dont need to be unique
+			if(id < 200){
+				id = id + 1;
+			}else{
+				id = id -1;
+			}
+		}
+
 		int compass_deg = radian_to_degree(compass);
 
 		if(id == 1 && ticks <=5){
