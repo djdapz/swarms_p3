@@ -205,6 +205,7 @@ class mykilobot : public kilobot
 			theta = radian_to_degree(t);
 			theta += 180;
 			theta = degrees_to_radians(theta);
+			printf("TOO CLOSE\n\r", );
 		}
 
 		//decide on magnitued
