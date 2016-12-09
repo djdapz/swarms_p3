@@ -37,15 +37,13 @@ class mykilobot : public kilobot
 	void loop()
 	{
 		compass_deg = radian_to_degree(compass);
-		spinup_motors();
-		set_motors(0,kilo_turn_right);
 
-		ticks = -1;
 		if(ticks > data_ticks){
 			if(movement_mag > mag_threshold){
 
 				int command = choose_direction_to_turn(compass_deg, next_angle_deg);
-
+				spinup_motors();
+				set_motors(50, 50);
 				if(id == 1){
 					printf("^^^^^^^^^^^^^\n\r");
 					printf("compass:       %d\n\r", compass_deg);
@@ -60,25 +58,25 @@ class mykilobot : public kilobot
 					}
 				}
 
-				if(command == 1)
-				{
-					spinup_motors();
-					set_motors(kilo_turn_left,0);
-				} else if (command == 2)
-				{
-					spinup_motors();
-					set_motors(0,kilo_turn_right);
-				}else{
-					if(movement_mag > mag_threshold){
-						spinup_motors();
-						set_motors(50, 50);
-					}
-				}
-			}
-			else{
-				spinup_motors();
-				set_motors(0,0);
-			}
+				// if(command == 1)
+				// {
+				// 	spinup_motors();
+				// 	set_motors(kilo_turn_left,0);
+				// } else if (command == 2)
+				// {
+				// 	spinup_motors();
+				// 	set_motors(0,kilo_turn_right);
+				// }else{
+				// 	if(movement_mag > mag_threshold){
+				// 		spinup_motors();
+				// 		set_motors(50, 50);
+				// 	}
+				// }
+			// }
+			// else{
+			// 	spinup_motors();
+			// 	set_motors(0,0);
+			// }
 		}
 		else if(ticks == data_ticks){
 			double composite_dir_rad = atan2(running_y, running_x);
