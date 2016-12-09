@@ -85,7 +85,7 @@ class mykilobot : public kilobot
 				printf("=====================\n\r");
 				printf("running_x	          %f\n\r", running_x);
 				printf("running_y	          %f\n\r", running_y);
-				printf("composite_dir_rad	  %f\n\r", running_y);
+				printf("composite_dir_rad	  %f\n\r", composite_dir_rad);
 				printf("movement_mag: 	      %f\n\r", movement_mag);
 				printf("compass:     	      %d\n\r", compass_deg);
 				printf("next_angle:  	      %d\n\r", next_angle_deg);
