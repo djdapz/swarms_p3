@@ -28,7 +28,7 @@ class mykilobot : public kilobot
 	int ticks = 0;
 	int max_ticks = 30;
 	int data_ticks = 15;
-	int mag_threshold = .1;
+	int mag_threshold = 0;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
 	int no_turn_zone = 20;
