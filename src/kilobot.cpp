@@ -38,7 +38,7 @@ class mykilobot : public kilobot
 	{
 		compass_deg = radian_to_degree(compass);
 		spinup_motors();
-		set_motors(50, 50);
+		set_motors(0,kilo_turn_right);
 
 		ticks = -1;
 		if(ticks > data_ticks){
