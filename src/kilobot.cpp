@@ -41,9 +41,16 @@ class mykilobot : public kilobot
 		compass_deg = radian_to_degree(compass);
 		int command;
 		if(ticks > data_ticks){
-
-
 			if(movement_mag > mag_threshold){
+
+				if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
+					command = 0;
+				}else if(next_angle_deg > 180){
+					command = 2;
+				}else{
+					command = 1;
+				}
+
 				if(id == 1){
 					printf("^^^^^^^^^^^^^\n\r");
 					printf("compass:       %d\n\r", compass_deg);
