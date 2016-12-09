@@ -10,7 +10,7 @@ class mykilobot : public kilobot
 	float next_angle;
 
 	int gravity = 1200;
-	int raidus_goal = 100;
+	int raidus_goal = 150;
 
 	int motion=0;
 	long int motion_timer=0;
