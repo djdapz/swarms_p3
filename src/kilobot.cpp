@@ -41,7 +41,7 @@ class mykilobot : public kilobot
 		compass_deg = radian_to_degree(compass);
 		int command;
 		if(ticks > data_ticks){
-			if(next_angle_deg > no_turn_zone || next_angle_deg > 360 - no_turn_zone){
+			if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
 				command = 0;
 			}else if(next_angle_deg > 180){
 				command = 2;
