@@ -53,7 +53,7 @@ class mykilobot : public kilobot
 					}else if (command == 2){
 						printf("TURN RIGHT \n\r");
 					}else{
-						printf("NO TURN \n\r");
+						printf("Move forward \n\r");
 					}
 				}
 
