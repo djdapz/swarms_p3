@@ -31,7 +31,7 @@ class mykilobot : public kilobot
 	int mag_threshold = 0;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
-	int no_turn_zone = 20;
+	int no_turn_zone = 10;
 
 
 
