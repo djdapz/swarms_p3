@@ -37,6 +37,10 @@ class mykilobot : public kilobot
 	void loop()
 	{
 		compass_deg = radian_to_degree(compass);
+		spinup_motors();
+		set_motors(50, 50);
+
+		ticks = -1;
 		if(ticks > data_ticks){
 			if(movement_mag > mag_threshold){
 
@@ -202,7 +206,6 @@ class mykilobot : public kilobot
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
-
 		}
 
 		double force_x = force_mag * cos(theta);
@@ -213,8 +216,6 @@ class mykilobot : public kilobot
 			running_x = force_x + running_x;
 			running_y = force_y + running_x;
 		}
-
-
 
 	}
 
