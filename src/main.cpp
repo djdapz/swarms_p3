@@ -529,12 +529,12 @@ void setup_positions()
 
 	robots[0] = new mykilobot();
 
-	robots[0]->robot_init(100, 100, 0);
+	robots[0]->robot_init(1000, 1000, 0);
 	robots[0]->id=0;
 
 	robots[1] = new mykilobot();
 
-	robots[1]->robot_init(400, 400, 0);
+	robots[1]->robot_init(1000, 1200, 0);
 	robots[1]->id=1;
 
 	// for(int i = 0; i < num_robots; i++){
