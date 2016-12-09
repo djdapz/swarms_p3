@@ -40,7 +40,6 @@ class mykilobot : public kilobot
 
 		if(ticks > data_ticks){
 			if(movement_mag > mag_threshold){
-
 				int command = choose_direction_to_turn(compass_deg, next_angle_deg);
 				spinup_motors();
 				set_motors(50, 50);
@@ -57,26 +56,29 @@ class mykilobot : public kilobot
 						printf("Move forward \n\r");
 					}
 				}
+			}
 
-				// if(command == 1)
-				// {
-				// 	spinup_motors();
-				// 	set_motors(kilo_turn_left,0);
-				// } else if (command == 2)
-				// {
-				// 	spinup_motors();
-				// 	set_motors(0,kilo_turn_right);
-				// }else{
-				// 	if(movement_mag > mag_threshold){
-				// 		spinup_motors();
-				// 		set_motors(50, 50);
-				// 	}
-				// }
+			//
+			// 	if(command == 1)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(kilo_turn_left,0);
+			// 	} else if (command == 2)
+			// 	{
+			// 		spinup_motors();
+			// 		set_motors(0,kilo_turn_right);
+			// 	}else{
+			// 		if(movement_mag > mag_threshold){
+			// 			spinup_motors();
+			// 			set_motors(50, 50);
+			// 		}
+			// 	}
 			// }
 			// else{
 			// 	spinup_motors();
 			// 	set_motors(0,0);
 			// }
+
 		}
 		else if(ticks == data_ticks){
 			double composite_dir_rad = atan2(running_y, running_x);
