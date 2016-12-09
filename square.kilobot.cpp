@@ -27,7 +27,7 @@ class mykilobot : public kilobot
 	int ticks = 0;
 	int max_ticks = 20;
 	int data_ticks = 10;
-	int mag_threshold = 0;
+	double mag_threshold = .01;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
 	int no_turn_zone = 10;
@@ -184,7 +184,7 @@ class mykilobot : public kilobot
 	void setup(){
 
 		out_message.type = NORMAL;
-		out_message.data[0] = id;
+		out_message.data[0] = rand() % 2;
 		out_message.crc = message_crc(&out_message);
 		set_color(RGB(0,1,0)); //starting color doesn't matter
 	}
