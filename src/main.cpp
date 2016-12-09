@@ -35,7 +35,7 @@ using namespace std;
 double time_sim;  //simulation time
 double zoom, view_x, view_y; //var. for zoom and scroll
 
-int num_robots = 2; //number of robots running
+int num_robots = 50; //number of robots running
 
 robot** robots;//creates an array of robots
 int* safe_distance;
@@ -527,27 +527,27 @@ void setup_positions()
 	int center_y=arena_height/2-rows/2 * vertical_separation;
 
 
-	robots[0] = new mykilobot();
+	// robots[0] = new mykilobot();
+	//
+	// robots[0]->robot_init(1000, 1000, 0);
+	// robots[0]->id=0;
+	//
+	// robots[1] = new mykilobot();
+	//
+	// robots[1]->robot_init(1000, 1200, 0);
+	// robots[1]->id=1;
 
-	robots[0]->robot_init(1000, 1000, 0);
-	robots[0]->id=0;
-
-	robots[1] = new mykilobot();
-
-	robots[1]->robot_init(1000, 1200, 0);
-	robots[1]->id=1;
-
-	// for(int i = 0; i < num_robots; i++){
-	// 	robots[i] = new mykilobot();
-	// 	int x_pos = rand()%(arena_width-100) + 50;
-	// 	int y_pos = rand()%(arena_width-100) + 50;
-	// 	// std::cout<<"id: "<<i<<'\n';
-	// 	// std::cout<<"x_pos: "<<x_pos<<'\n';
-	// 	// std::cout<<"y_pos: "<<y_pos<<'\n';
-	// 	// std::cout<<"i==============="<<'\n';
-	// 	robots[i]->robot_init(x_pos, y_pos, 0);
-	// 	robots[i]->id=i;
-	// }
+	for(int i = 0; i < num_robots; i++){
+		robots[i] = new mykilobot();
+		int x_pos = rand()%(arena_width-100) + 50;
+		int y_pos = rand()%(arena_width-100) + 50;
+		// std::cout<<"id: "<<i<<'\n';
+		// std::cout<<"x_pos: "<<x_pos<<'\n';
+		// std::cout<<"y_pos: "<<y_pos<<'\n';
+		// std::cout<<"i==============="<<'\n';
+		robots[i]->robot_init(x_pos, y_pos, 0);
+		robots[i]->id=i;
+	}
 
 
 
