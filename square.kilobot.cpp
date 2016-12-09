@@ -10,7 +10,7 @@ class mykilobot : public kilobot
 	float next_angle;
 
 	int gravity = 1200;
-	int raidus_goal = 50;
+	int raidus_goal = 150;
 
 	int motion=0;
 	long int motion_timer=0;
@@ -19,27 +19,27 @@ class mykilobot : public kilobot
 	struct mydata {
 		unsigned int data1;
 		unsigned int data2;
-
 	};
 
 	double running_x = 0;
 	double running_y = 0;
 	double movement_mag = 0;
 	int ticks = 0;
-	int max_ticks = 30;
-	int moving_ticks = 20;
-	int turning_ticks = 10;
-	int mag_threshold = .1;
+	int max_ticks = 20;
+	int data_ticks = 10;
+	int mag_threshold = 0;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
-	int no_turn_zone = 20;
+	int no_turn_zone = 10;
+
 
 
 	//main loop
 	void loop()
 	{
 		compass_deg = radian_to_degree(compass);
-		if(ticks >=moving_ticks){
+		int command;
+		if(ticks > data_ticks){
 			if(movement_mag > mag_threshold){
 				spinup_motors();
 				set_motors(50, 50);
@@ -101,53 +101,67 @@ class mykilobot : public kilobot
 			// }
 			if(movement_mag > mag_threshold){
 
-				int command = choose_direction_to_turn(compass_deg, next_angle_deg);
+				if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
+					command = 0;
+				}else if(next_angle_deg > 180){
+					command = 2;
+				}else{
+					command = 1;
+				}
 
-				// if(id == 1){
-				// 	printf("^^^^^^^^^^^^^\n\r");
-				// 	printf("compass:       %d\n\r", compass_deg);
-				// 	printf("next_angle:    %d\n\r", next_angle_deg);
-				// }
+				if(id == 1){
+					printf("^^^^^^^^^^^^^\n\r");
+					printf("compass:       %d\n\r", compass_deg);
+					printf("next_angle:    %d\n\r", next_angle_deg);
+
+					if(command == 1){
+						printf("TURN LEFT \n\r");
+					}else if (command == 2){
+						printf("TURN RIGHT \n\r");
+					}else{
+						printf("Move forward \n\r");
+					}
+				}
 
 				if(command == 1)
 				{
 					spinup_motors();
-					if(id ==1){
-						printf("TURN LEFT \n\r");
-					}
-					set_motors(kilo_turn_left,0);
+					set_motors(0,kilo_turn_left);
 				} else if (command == 2)
 				{
-					if(id ==1){
-						printf("TURN RIGHT \n\r");
-					}
 					spinup_motors();
-					set_motors(0,kilo_turn_right);
+					set_motors(kilo_turn_right,0);
 				}else{
-					if(id ==1){
-						printf("NO TURN \n\r");
+					if(movement_mag > mag_threshold){
+						spinup_motors();
+						set_motors(50, 50);
 					}
 				}
-			}
-			else{
+
+			}else{
 				spinup_motors();
 				set_motors(0,0);
 			}
-		}else if(ticks == turning_ticks){
+
+
+
+		}
+		else if(ticks == data_ticks){
 			double composite_dir_rad = atan2(running_y, running_x);
 			next_angle = composite_dir_rad;
 			next_angle_deg = radian_to_degree(next_angle);
 			movement_mag = sqrt(running_x*running_x + running_y*running_y);
 			if(id ==1){
 				printf("=====================\n\r");
-				printf("running_x	   %f\n\r", running_x);
-				printf("running_y	   %f\n\r", running_y);
-				printf("movement_mag:  %f\n\r", movement_mag);
-				printf("compass:       %d\n\r", compass_deg);
-				printf("next_angle:    %d\n\r", next_angle_deg);
-				printf("ticks:         %d\n\r", ticks);
-				printf("gravity:       %d\n\r", gravity);
-				printf("distance:      %d\n\r", distance);
+				printf("running_x	          %f\n\r", running_x);
+				printf("running_y	          %f\n\r", running_y);
+				printf("composite_dir_rad	  %f\n\r", composite_dir_rad);
+				printf("movement_mag: 	      %f\n\r", movement_mag);
+				printf("compass:     	      %d\n\r", compass_deg);
+				printf("next_angle:  	      %d\n\r", next_angle_deg);
+				printf("ticks:         	      %d\n\r", ticks);
+				printf("gravity:              %d\n\r", gravity);
+				printf("distance:    	      %d\n\r", distance);
 			}
 
 			running_x = 0;
@@ -167,8 +181,7 @@ class mykilobot : public kilobot
 	}
 
 	//executed once at start
-	void setup()
-	{
+	void setup(){
 
 		out_message.type = NORMAL;
 		out_message.data[0] = id;
@@ -177,15 +190,13 @@ class mykilobot : public kilobot
 	}
 
 	//executed on successfull message send
-	void message_tx_success()
-	{
+	void message_tx_success(){
 		//set_color(RGB(1,0,0));
 
 	}
 
 	//sends message at fixed rate
-	message_t *message_tx()
-	{
+	message_t *message_tx(){
 		static int count = rand();
 		count--;
 		if (!(count % 10))
@@ -237,10 +248,7 @@ class mykilobot : public kilobot
 	// 	}
 	// }
 
-
-	void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t)
-
-	{
+	void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t){
 
         distance = estimate_distance(distance_measurement);
 		theta = t;
@@ -251,8 +259,14 @@ class mykilobot : public kilobot
 		if(distance < raidus_goal){
 			//reverse theta
 			theta = radian_to_degree(t);
-			theta += 180;
+			if(theta > 180){
+				theta -= 180;
+			}else{
+				theta += 180;
+			}
+
 			theta = degrees_to_radians(theta);
+			printf("TOO CLOSE\n\r");
 		}
 
 		//decide on magnitued
@@ -276,25 +290,31 @@ class mykilobot : public kilobot
 
 		if(id == 1 && ticks <=5){
 			set_color(RGB(1,0,0));
-
 		}
 
 		double force_x = force_mag * cos(theta);
 		double force_y = force_mag * sin(theta);
 
 
-		if(ticks <turning_ticks){
+		if(ticks < data_ticks){
 			running_x = force_x + running_x;
 			running_y = force_y + running_x;
 		}
-
-
 
 	}
 
 
 	int radian_to_degree(double radians){
-		return (int)radians * 360 / (2*M_PI) + 180;
+
+		double intermediate = radians;
+		intermediate = intermediate/(2*M_PI);
+    	intermediate = intermediate * 360;
+
+		if(intermediate <0){
+    		return (int)intermediate + 360;
+	    }else{
+			return (int)intermediate;
+	    }
 	}
 
 	double degrees_to_radians(int degrees){
