@@ -39,10 +39,17 @@ class mykilobot : public kilobot
 	void loop()
 	{
 		compass_deg = radian_to_degree(compass);
-		if(ticks > data_ticks){
-			if(movement_mag > mag_threshold){
-				int command = choose_direction_to_turn(compass_deg, next_angle_deg);
 
+		if(ticks > data_ticks){
+			if(next_angle_deg > no_turn_zone || next_angle_deg > 360 - no_turn_zone){
+				command = 0;
+			}else if(next_angle_deg > 180){
+				command = 2;
+			}else{
+				command = 1;
+			}
+
+			if(movement_mag > mag_threshold){
 				if(id == 1){
 					printf("^^^^^^^^^^^^^\n\r");
 					printf("compass:       %d\n\r", compass_deg);
@@ -56,36 +63,28 @@ class mykilobot : public kilobot
 						printf("Move forward \n\r");
 					}
 				}
-			}
 
-			if(next_angle_deg > no_turn_zone || next_angle_deg > 360 - no_turn_zone){
-				command = 0;
-			}else if(next_angle_deg > 180){
-				command = 2;
+				if(command == 1)
+				{
+					spinup_motors();
+					set_motors(0,kilo_turn_left);
+				} else if (command == 2)
+				{
+					spinup_motors();
+					set_motors(kilo_turn_right,0);
+				}else{
+					if(movement_mag > mag_threshold){
+						spinup_motors();
+						set_motors(50, 50);
+					}
+				}
+
 			}else{
-				command = 1;
+				spinup_motors();
+				set_motors(0,0);
 			}
 
-			//
-			// 	if(command == 1)
-			// 	{
-			// 		spinup_motors();
-			// 		set_motors(0,kilo_turn_left);
-			// 	} else if (command == 2)
-			// 	{
-			// 		spinup_motors();
-			// 		set_motors(kilo_turn_right,0);
-			// 	}else{
-			// 		if(movement_mag > mag_threshold){
-			// 			spinup_motors();
-			// 			set_motors(50, 50);
-			// 		}
-			// 	}
-			// }
-			// else{
-			// 	spinup_motors();
-			// 	set_motors(0,0);
-			// }
+
 
 		}
 		else if(ticks == data_ticks){
