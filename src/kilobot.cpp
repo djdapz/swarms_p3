@@ -26,8 +26,8 @@ class mykilobot : public kilobot
 	double running_y = 0;
 	double movement_mag = 0;
 	int ticks = 0;
-	int max_ticks = 30;
-	int data_ticks = 15;
+	int max_ticks = 10;
+	int data_ticks = 10;
 	int mag_threshold = 0;
 	int compass_deg = 0;
 	int next_angle_deg = 0;
@@ -41,64 +41,42 @@ class mykilobot : public kilobot
 		compass_deg = radian_to_degree(compass);
 		int command;
 		if(ticks > data_ticks){
-			spinup_motors();
-			set_motors(kilo_turn_right,0);
-			// if(next_angle_deg < no_turn_zone || next_angle_deg > 360 - no_turn_zone){
-			// 	command = 0;
-			// }else if(next_angle_deg > 180){
-			// 	command = 2;
-			// }else{
-			// 	command = 1;
-			// }
 
-			if(id == 1){
-				printf("^^^^^^^^^^^^^\n\r");
-				printf("compass:       %d\n\r", compass_deg);
-				printf("next_angle:    %d\n\r", next_angle_deg);
 
-				if(command == 1){
-					printf("TURN LEFT \n\r");
-				}else if (command == 2){
-					printf("TURN RIGHT \n\r");
-				}else{
-					printf("Move forward \n\r");
+			if(movement_mag > mag_threshold){
+				if(id == 1){
+					printf("^^^^^^^^^^^^^\n\r");
+					printf("compass:       %d\n\r", compass_deg);
+					printf("next_angle:    %d\n\r", next_angle_deg);
+
+					if(command == 1){
+						printf("TURN LEFT \n\r");
+					}else if (command == 2){
+						printf("TURN RIGHT \n\r");
+					}else{
+						printf("Move forward \n\r");
+					}
 				}
-			}
 
-			// if(movement_mag > mag_threshold){
-			// 	if(id == 1){
-			// 		printf("^^^^^^^^^^^^^\n\r");
-			// 		printf("compass:       %d\n\r", compass_deg);
-			// 		printf("next_angle:    %d\n\r", next_angle_deg);
-			//
-			// 		if(command == 1){
-			// 			printf("TURN LEFT \n\r");
-			// 		}else if (command == 2){
-			// 			printf("TURN RIGHT \n\r");
-			// 		}else{
-			// 			printf("Move forward \n\r");
-			// 		}
-			// 	}
-			//
-			// 	if(command == 1)
-			// 	{
-			// 		spinup_motors();
-			// 		set_motors(0,kilo_turn_left);
-			// 	} else if (command == 2)
-			// 	{
-			// 		spinup_motors();
-			// 		set_motors(kilo_turn_right,0);
-			// 	}else{
-			// 		if(movement_mag > mag_threshold){
-			// 			spinup_motors();
-			// 			set_motors(50, 50);
-			// 		}
-			// 	}
-			//
-			// }else{
-			// 	spinup_motors();
-			// 	set_motors(0,0);
-			// }
+				if(command == 1)
+				{
+					spinup_motors();
+					set_motors(0,kilo_turn_left);
+				} else if (command == 2)
+				{
+					spinup_motors();
+					set_motors(kilo_turn_right,0);
+				}else{
+					if(movement_mag > mag_threshold){
+						spinup_motors();
+						set_motors(50, 50);
+					}
+				}
+
+			}else{
+				spinup_motors();
+				set_motors(0,0);
+			}
 
 
 
@@ -164,48 +142,6 @@ class mykilobot : public kilobot
 		}
 		return NULL;
 	}
-
-	// //receives message
-	// void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t)
-	// {
-	// 	distance = estimate_distance(distance_measurement);
-	// 	theta=t;
-	//
-	//
-	//
-	// 	//caluclate force vector
-	//
-	// 	//decide on direction
-	// 	if(distance < raidus_goal){
-	// 		//reverse theta
-	// 		theta = radian_to_degree(t);
-	// 		theta += 180;
-	// 		theta = degrees_to_radians(theta);
-	// 	}
-	//
-	// 	//decide on magnitued
-	// 	double force_mag = gravity * 1 * 1 / (distance * distance);
-	//
-	// 	if(id == 1 && ticks <=5){
-	// 		set_color(RGB(1,0,0));
-	// 		std::cout<<"============="<<'\n';
-	// 		std::cout<<"force_mag: "<<force_mag<<'\n';
-	// 		std::cout<<"ticks: "<<ticks<<'\n';
-	// 		std::cout<<"gravity: "<<gravity<<'\n';
-	// 		// std::cout<<"distance: "<<distance<<'\n';
-	// 		fprintf("dist %d\n\r", distance);
-	// 	}
-	//
-	//
-	// 	double force_x = force_mag * cos(theta);
-	// 	double force_y = force_mag * sin(theta);
-	//
-	//
-	// 	if(ticks <6){
-	// 		running_x = force_x + running_x;
-	// 		running_y = force_y + running_x;
-	// 	}
-	// }
 
 
 	void message_rx(message_t *message, distance_measurement_t *distance_measurement,float t)
